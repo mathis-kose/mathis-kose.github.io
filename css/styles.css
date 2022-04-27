@@ -3,9 +3,18 @@
     padding: 0px;
     box-sizing: border-box;
 }
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
 body{
     overflow-x: hidden;
-
+    
+    background-color: rgb(252,253,255);
+    position:relative;
+}
+html{
+    overflow-x: initial !important;
 }
 
 
@@ -42,15 +51,125 @@ nav{
 }
 .nav-links a{
     color: #388ad1;
+    
     text-decoration: none;
     letter-spacing: .5vw;
-    font-size:calc(40px + .5vh);
-    
-    
+    font-size:calc(30px + .9vw);
 }
 .nav-links li{
     list-style: none;
+    margin-top: 33px;
 }
+
+/* Link Animation  Start*/
+
+.art_link:link{
+    background-image: linear-gradient(60deg,#388ad1,#388ad1,#388ad1,#388ad1,#388ad1,#388ad1,#388ad1,#388ad1,#388ad1,#388ad1,#388ad1,#388ad1,#388ad1,#388ad1,#388ad1,#388ad1,#388ad1,#388ad1,#388ad1,#388ad1, #388ad1,#388ad1,#388ad1, #40daf5,#bbf5ff,#31b9d1,#388ad1, #388ad1,#388ad1,#388ad1,#388ad1,#388ad1,#388ad1,#388ad1,#388ad1,#388ad1,#388ad1);
+    background-size: 1000%;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: art_logo_animation 3s linear infinite;
+    
+    font-weight: bold;
+
+}
+.art_link::after{
+   position: absolute;
+   content: "";
+   top: 100%;
+   left: 0;
+   width: 100%;
+   height: 0.3rem;
+   background-color: #31b9d1;
+   transform: scaleX(0);
+   transform-origin: right;
+   transition: transform 250ms;
+}
+.art_link:hover::after{
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.art_link{
+    position: relative;
+
+}
+.art_link::after{
+   position: absolute;
+   content: "";
+   top: 95%;
+   left: 0;
+   width: 100%;
+   height: 0.3rem;
+   border-radius: 50%;
+   background-image: linear-gradient(25deg, #0051ff,#028fe0,#007ac0,#006caa,#2e9edf,#0e8bd3,#006caa,#007ac0,#028fe0);
+   background-position: center;
+   box-shadow: rgba(0, 0, 0, .4) 3px 6px 15px ;
+   background-size: 200%;
+   transform: scaleX(0);
+   transform-origin: right;
+   transition: transform 250ms;
+}
+.art_link:hover::after{
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.project_link{
+    position: relative;
+}
+.project_link:link{
+    font-size: calc(25px + .9vw);;
+}
+.project_link::after{
+   position: absolute;
+   content: "";
+   top: 95%;
+   left: 0;
+   width: 100%;
+   height: 0.3rem;
+   border-radius: 50%;
+   background-image: linear-gradient(25deg, #0051ff,#028fe0,#007ac0,#006caa,#2e9edf,#0e8bd3,#006caa,#007ac0,#028fe0);
+   background-position: center;
+   box-shadow: rgba(0, 0, 0, .4) 3px 6px 15px ;
+   transform: scaleX(0);
+   transform-origin: right;
+   transition: transform 250ms;
+}
+.project_link:hover::after{
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.about_me_link{
+    position: relative;
+}
+.about_me_link:link{
+    font-size: calc(25px + .9vw);
+}
+.about_me_link::after{
+   position: absolute;
+   content: "";
+   top: 95%;
+   left: 0;
+   width: 100%;
+   height: 0.3rem;
+   border-radius: 50%;
+   background-image: linear-gradient(25deg, #0051ff,#028fe0,#007ac0,#006caa,#2e9edf,#0e8bd3,#006caa,#007ac0,#028fe0);
+   background-position: center;
+   box-shadow: rgba(0, 0, 0, .4) 3px 6px 15px ;
+   transform: scaleX(0);
+   transform-origin: right;
+   transition: transform 250ms;
+}
+.about_me_link:hover::after{
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+
+/* Link Animation  End*/
+
 .burger{
     display: none;
 }
@@ -83,28 +202,28 @@ nav{
 }
 .cute_bear{
     position: absolute;
-    width: 25%;
-    left: 10%;
-    top: 50%;
+    width: 20%;
+    top: 25%;
+    left: 65%;
+    
 
 }
 
 .first_headline{
     
     font-family: 'Poppins', sans-serif;
-    margin-top: 20vh;
+    margin-top: 19vh;
     margin-left: 55%;
 }
-.im_mathis{
-    font-size: 6.5vw;
-    color: black;
-    
+.mathis_sign{
+    margin-top: 30%;
+    width: 90%;
 }
 
 
 .subtitle{
     font-size: 3.3vw;
-    left: 20vw;
+    margin-left: 4%;
     color: rgb(39, 39, 39);
     font-weight: normal;
 }
@@ -149,8 +268,8 @@ nav{
     .cute_bear{
         position: absolute;
         width: 50%;
-        left: 10%;
-        top: 50%;
+        left: 46%;
+        top: 15%;
     }
     .nav-links li{
         opacity: 0;
@@ -172,12 +291,30 @@ nav{
         position: relative;
         left: -1%;
     }
-    .im_mathis{
-        margin-top: 40%;
-    }
+    
     .first_headline{
-        margin-left: 20%;
+        margin-left: 28%;
+        margin-top: 95%;
     }
+    .mathis_sign{
+        width: 95%;
+        height: auto;
+    }
+    .subtitle{
+        font-family: 'Poppins', sans-serif;
+        font-size: 25px;
+        margin-left: 4.5%;
+    }
+    .art_link:link{
+        font-size:calc(30px + .9vw);
+    }
+    .project_link:link{
+        font-size:calc(22px + .9vw);
+    }
+    .about_me_link:link{
+        font-size:calc(22px + .9vw);
+    }
+    
 
    
 

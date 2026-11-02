@@ -15,7 +15,7 @@ body{
     position:relative;
 }
 html{
-    overflow-x: initial !important;
+    overflow-x: clip !important;
     
 }
 

@@ -120,7 +120,7 @@
     text-align: center;
     padding: 2rem 0 3rem;
     font-weight: 300;
-    opacity: .6;
+    color: color-mix(in srgb, var(--text) 60%, transparent);
 }
 
 /* Handy: Button volle Breite, Daumen-freundlich */

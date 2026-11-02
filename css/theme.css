@@ -1,0 +1,70 @@
+/* Farbschema: folgt dem System (prefers-color-scheme), manuell uebersteuerbar
+   ueber <html data-theme="light|dark"> (Schalter unten rechts, siehe app.js/theme.js) */
+:root {
+    color-scheme: light;
+    --bg: rgb(252, 253, 255);
+    --text: rgb(39, 39, 39);
+    --surface: #fff;
+    --border: #e2e2e2;
+    --accent: #388ad1;
+    --accent-shadow: rgba(56, 138, 209, .4);
+    --card-shadow: 0 10px 40px rgba(56, 138, 209, .12), 0 2px 8px rgba(0, 0, 0, .06);
+    --img-shadow: 0 8px 24px rgba(0, 0, 0, .18);
+    --scroll-track: #e2e2e2;
+    --btn-disabled: #c9d6e3;
+    --btn-disabled-text: #fff;
+    --sign-filter: none;
+}
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --bg: #0f1012;
+        --text: #ececee;
+        --surface: #1a1b1e;
+        --border: #2e3035;
+        --accent: #5aa7ee;
+        --accent-shadow: rgba(90, 167, 238, .35);
+        --card-shadow: 0 10px 40px rgba(0, 0, 0, .55), 0 2px 8px rgba(0, 0, 0, .4);
+        --img-shadow: 0 8px 24px rgba(0, 0, 0, .6);
+        --scroll-track: #26272b;
+        --btn-disabled: #2b3440;
+        --btn-disabled-text: #8a97a6;
+        --sign-filter: invert(1);
+    }
+}
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #0f1012;
+    --text: #ececee;
+    --surface: #1a1b1e;
+    --border: #2e3035;
+    --accent: #5aa7ee;
+    --accent-shadow: rgba(90, 167, 238, .35);
+    --card-shadow: 0 10px 40px rgba(0, 0, 0, .55), 0 2px 8px rgba(0, 0, 0, .4);
+    --img-shadow: 0 8px 24px rgba(0, 0, 0, .6);
+    --scroll-track: #26272b;
+    --btn-disabled: #2b3440;
+    --btn-disabled-text: #8a97a6;
+    --sign-filter: invert(1);
+}
+
+body { background-color: var(--bg); color: var(--text); transition: background-color .25s ease, color .25s ease; }
+
+.theme-toggle {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 10;
+    font: 600 .8rem/1 'Poppins', sans-serif;
+    letter-spacing: .06em;
+    padding: .65rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 100vw;
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+    box-shadow: var(--card-shadow);
+}
+.theme-toggle:hover { border-color: var(--accent); }
+.theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { body { transition: none; } }

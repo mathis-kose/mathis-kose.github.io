@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Tiger, Linolschnitt-Modell">
+  <g id="tiger">
+    <path d="M40 58 L64 26 L80 56 Q100 48 120 56 L136 26 L160 58 Q174 90 166 124 Q158 162 100 174 Q42 162 34 124 Q26 90 40 58Z" fill="#1a1a1a"/>
+    <path class="stripe" d="M100 60 L93 84 L107 84Z" fill="#fcfdff"/>
+    <path class="stripe" d="M46 92 L70 98 L46 106Z" fill="#fcfdff"/>
+    <path class="stripe" d="M154 92 L130 98 L154 106Z" fill="#fcfdff"/>
+    <path class="stripe" d="M60 128 L78 124 L72 134Z" fill="#fcfdff"/>
+    <path class="stripe" d="M140 128 L122 124 L128 134Z" fill="#fcfdff"/>
+    <path d="M58 106 L84 100 L80 110 Z" fill="#fcfdff"/>
+    <path d="M142 106 L116 100 L120 110 Z" fill="#fcfdff"/>
+    <path d="M84 146 Q100 134 116 146 Q100 154 84 146Z" fill="#fcfdff"/>
+    <path d="M92 150 L96 164 L100 152 Z" fill="#fcfdff"/>
+    <path d="M108 150 L104 164 L100 152 Z" fill="#fcfdff"/>
+  </g>
+</svg>

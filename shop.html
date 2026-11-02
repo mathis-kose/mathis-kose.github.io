@@ -8,10 +8,11 @@
     <meta name="color-scheme" content="light dark">
     <script src="theme.js"></script>
     <title>Shop | MK-Projects</title>
-    <meta name="description" content="Handgeschnittene Linoldrucke von Mathis Kose.">
+    <meta name="description" content="Linolschnitte und technische Projekte von Mathis Kose.">
     <link rel="stylesheet" href="css/theme.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/shop.css">
+    <link rel="stylesheet" href="css/bento.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600&display=swap" rel="stylesheet">
@@ -25,9 +26,10 @@
             <h4><a class="logo_link" href="index.html">術</a></h4>
         </div>
         <ul class="nav-links">
-            <li><a class="art_link" href="shop.html">Art</a></li>
-            <li><a class="project_link" href="#">Projects</a></li>
-            <li><a class="about_me_link" href="#">About Me</a></li>
+            <li><a class="art_link" href="shop.html">Kunst</a></li>
+            <li><a class="project_link" href="#technik">Technik</a></li>
+            <li><a class="about_me_link" href="index.html#ueber-mich">Über mich</a></li>
+            <li><a href="index.html#kontakt">Kontakt</a></li>
         </ul>
         <div class="burger">
             <div class="line1"></div>
@@ -40,43 +42,23 @@
     <main class="shop">
         <header class="shop-head">
             <h1>Shop</h1>
-            <p>Handgeschnittene Linoldrucke</p>
+            <p>Kunst und technische Projekte, alles selbst gemacht und getestet.</p>
         </header>
 
-        <article class="product">
-            <figure class="product-media">
-                <img src="img/shop/tiger.png" width="1565" height="2039" alt="Linoldruck: schwarzer Tiger im Oni-Stil, gerahmt mit Passepartout">
-            </figure>
-            <div class="product-body">
-                <p class="product-tag">Linoldruck</p>
-                <h2>Tiger</h2>
-                <p class="product-text">
-                    Ein Tiger mit Oni-Fratze, aus Linoleum geschnitten und von Hand gedruckt.
-                    Klare schwarze Flächen, harte Kanten, viel Raum drumherum: das Motiv lebt vom
-                    Kontrast zwischen Papier und Farbe.
-                </p>
-                <ul class="product-facts">
-                    <li><span>Technik</span> Linoldruck, schwarz auf Papier</li>
-                    <li><span>Stil</span> Japanische Tattoo-Ästhetik</li>
-                    <li><span>Darstellung</span> Gerahmt mit Passepartout</li>
-                </ul>
-                <div class="product-buy">
-                    <span class="product-price">Preis folgt</span>
-                    <button class="product-btn" type="button" disabled>Demnächst erhältlich</button>
-                </div>
-            </div>
-        </article>
+        <section class="bento" aria-label="Produkte" style="margin-top:2rem">
+            <a class="tile tile-big" href="tiger.html" aria-label="Tiger, Linoldruck: zur Produktseite">
+                <img src="img/shop/tiger.png" width="1565" height="2039" loading="lazy" alt="" style="width:78%;height:78%;object-fit:contain;border-radius:8px">
+                <span class="tile-label" aria-hidden="true">Tiger · Linoldruck</span>
+            </a>
+            <a class="tile tile-big" href="orchideen.html" aria-label="Orchideen-Bewässerungssystem, Mockup: zur Produktseite">
+                <img src="img/svg/orchideen-system.svg" width="240" height="300" loading="lazy" alt="" style="width:78%;height:78%;object-fit:contain">
+                <span class="tile-label" aria-hidden="true">Orchideen-System · Mockup</span>
+            </a>
+        </section>
 
-        <section class="making">
-            <h2>Entstehung</h2>
-            <p class="making-text">
-                Vom Linol zum Abzug: die von Hand geschnittene Platte, der Probedruck
-                und der fertige Abzug im Vergleich.
-            </p>
-            <figure>
-                <img src="img/shop/tiger-entstehung.jpg" width="1800" height="2250" loading="lazy"
-                     alt="Entstehung des Tiger-Linoldrucks: Abzug, geschnittene Linolplatte und Detailansicht des Gesichts, darunter die drei Schritte Schneiden, Drucken und Prüfen">
-            </figure>
+        <section id="technik" class="making" aria-labelledby="tech-h">
+            <h2 id="tech-h">Technik</h2>
+            <p class="making-text">Eigenbau und Mockups mit Spec-Tabelle, Lieferumfang und Downloads auf der Produktseite. Preise folgen nach Klärung.</p>
         </section>
     </main>
 

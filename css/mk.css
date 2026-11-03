@@ -375,35 +375,44 @@ details p { margin: .6rem 0 0; color: var(--muted); }
 .story-cta h2 { font-size: 1.6rem; margin-bottom: .6rem; }
 .story-cta .acts { display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap; margin-top: 1.2rem; }
 
-/* Tiger-Story-Buehne (HTML-Ebenen) */
-.tg { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
-.tg svg.tiger-l { width: 76%; height: 76%; overflow: visible; }
-.tg .plate { position: absolute; width: 88%; height: 84%; border-radius: 14px; background: #a3ad98; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .15), 0 18px 40px rgba(0, 0, 0, .25); opacity: 0; transform: scale(.92); transition: opacity .6s ease, transform .6s ease, background .6s ease; }
-.tg .sketch { fill: none; stroke: #141414; stroke-width: 1.4px; opacity: 0; transition: opacity .6s ease; vector-effect: non-scaling-stroke; }
-.tg .l-sketch, .tg .l-cut, .tg .l-ink, .tg .l-paper, .tg .l-frame { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; transition: opacity .6s ease, clip-path 1.1s cubic-bezier(.4, 0, .2, 1); }
-.tg .l-sketch { opacity: 0; }
-.tg .l-sketch svg use { fill: none; stroke: #2b2b2b; stroke-width: 3px; stroke-linejoin: round; opacity: .85; }
-.tg .l-cut { opacity: 0; clip-path: inset(0 100% 0 0); }
-.tg .l-cut use { fill: #56634f; }
-.tg .l-ink { opacity: 0; clip-path: inset(0 0 100% 0); }
-.tg .l-ink use { fill: #0e0e0e; }
-.tg .l-paper { opacity: 0; }
-.tg .l-paper use { fill: #0e0e0e; }
-.tg .l-frame { opacity: 0; padding: 5% 4% 11%; }
-.tg .l-frame img { height: 100%; width: auto; max-width: 100%; border-radius: 4px; box-shadow: 0 14px 34px rgba(0, 0, 0, .3); }
+/* Tiger-Story-Buehne: Schnitzgummi-Platte als 3D-Koerper (CSS-3D), nach hinten leicht gekippt und in der Perspektive kleiner */
+.tg { position: absolute; inset: 0; perspective: 1300px; perspective-origin: 50% 52%; --T: 24px; --tilt: 26deg; }
 .tg .paper-bg { position: absolute; inset: 0; background: var(--paper); transition: background .6s ease; }
+.tg .board { position: absolute; left: 9%; right: 9%; top: 10%; bottom: 14%; transform-style: preserve-3d; transform: rotateX(var(--tilt)); transform-origin: 50% 62%; }
+.tg .plate { position: absolute; inset: 0; transform-style: preserve-3d; transform: translateZ(-60px); transition: transform .9s cubic-bezier(.2, .7, .2, 1); }
+.tg .plate i { position: absolute; display: block; opacity: 0; transition: opacity .7s ease; }
+.tg .pf-top { inset: 0; border-radius: 9px; transform: translateZ(var(--T)); background: radial-gradient(130% 100% at 28% 18%, #b9c3ae 0%, #a3ad98 52%, #929e87 100%); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .14), inset 0 1px 0 rgba(255, 255, 255, .4), inset 0 0 26px rgba(0, 0, 0, .09); }
+.tg .pf-front { left: 0; right: 0; top: 100%; height: var(--T); transform-origin: 50% 0; transform: rotateX(90deg); background: linear-gradient(#74816b, #5a6652); border-radius: 0 0 7px 7px; box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .25); }
+.tg .gshadow { position: absolute; left: 3%; right: 3%; top: 8%; bottom: -6%; background: rgba(25, 25, 10, .32); border-radius: 18px; filter: blur(18px); transform: translateZ(-36px); opacity: 0; transition: opacity .7s ease; }
+.tg .l-sketch, .tg .l-cut, .tg .l-ink { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .6s ease, clip-path 1.1s cubic-bezier(.4, 0, .2, 1); }
+.tg .l-sketch { transform: translateZ(calc(var(--T) + 1px)); }
+.tg .l-cut { transform: translateZ(calc(var(--T) + 2px)); clip-path: inset(0 100% 0 0); }
+.tg .l-ink { transform: translateZ(calc(var(--T) + 3px)); clip-path: inset(0 0 100% 0); }
+.tg svg.tiger-l { width: 88%; height: 88%; overflow: visible; transition: transform .9s cubic-bezier(.4, 0, .2, 1); }
+.tg .l-sketch svg use { fill: none; stroke: #2b2b2b; stroke-width: 3px; stroke-linejoin: round; opacity: .85; }
+.tg .l-cut use { fill: #56634f; }
+.tg .l-ink use { fill: #0e0e0e; }
+/* Die Platte traegt das Motiv spiegelverkehrt: Beim Uebertragen (Schritt 2) kippt die Skizze, der Abzug ist wieder seitenrichtig */
+.tg .l-cut svg.tiger-l, .tg .l-ink svg.tiger-l { transform: scaleX(-1); }
+.story-stage:not([data-step="1"]) .tg .l-sketch svg.tiger-l { transform: scaleX(-1); }
+.tg .l-paper { position: absolute; left: -3%; right: -3%; top: -4%; bottom: -4%; display: flex; align-items: center; justify-content: center; background: #fbf9f3; border-radius: 3px; box-shadow: 0 1px 2px rgba(0, 0, 0, .2), 0 10px 26px rgba(0, 0, 0, .22); opacity: 0; transform: translateZ(calc(var(--T) + 80px)) translateY(-9%); transition: opacity .7s ease, transform 1s cubic-bezier(.2, .7, .2, 1); }
+.tg .l-paper use { fill: #0e0e0e; }
+.tg .l-frame { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; padding: 5% 4% 11%; transform: translateY(14px) scale(.96); transition: opacity .7s ease, transform .9s cubic-bezier(.2, .7, .2, 1); }
+.tg .l-frame img { height: 100%; width: auto; max-width: 100%; border-radius: 4px; box-shadow: 0 14px 34px rgba(0, 0, 0, .3); }
 .story-stage[data-step="1"] .l-sketch { opacity: 1; }
-.story-stage[data-step="2"] .plate { opacity: 1; transform: none; }
+.story-stage[data-step="2"] .plate { transform: none; }
+.story-stage[data-step="2"] .plate i, .story-stage[data-step="2"] .gshadow { opacity: 1; }
 .story-stage[data-step="2"] .l-sketch { opacity: .9; }
 .story-stage[data-step="2"] .l-sketch use { stroke: #3d4838; }
-.story-stage[data-step="3"] .plate { opacity: 1; transform: none; }
-.story-stage[data-step="3"] .l-cut { opacity: 1; clip-path: inset(0 0 0 0); }
-.story-stage[data-step="4"] .plate { opacity: 1; transform: none; }
-.story-stage[data-step="4"] .l-cut { opacity: 1; clip-path: inset(0 0 0 0); }
-.story-stage[data-step="4"] .l-ink { opacity: 1; clip-path: inset(0 0 0 0); }
-.story-stage[data-step="5"] .l-paper { opacity: 1; }
-.story-stage[data-step="6"] .l-frame { opacity: 1; }
+.story-stage[data-step="3"] .plate, .story-stage[data-step="4"] .plate, .story-stage[data-step="5"] .plate { transform: none; }
+.story-stage[data-step="3"] .plate i, .story-stage[data-step="4"] .plate i, .story-stage[data-step="5"] .plate i,
+.story-stage[data-step="3"] .gshadow, .story-stage[data-step="4"] .gshadow, .story-stage[data-step="5"] .gshadow { opacity: 1; }
+.story-stage[data-step="3"] .l-cut, .story-stage[data-step="4"] .l-cut, .story-stage[data-step="5"] .l-cut { opacity: 1; clip-path: inset(0 0 0 0); }
+.story-stage[data-step="4"] .l-ink, .story-stage[data-step="5"] .l-ink { opacity: 1; clip-path: inset(0 0 0 0); }
+.story-stage[data-step="5"] .l-paper { opacity: 1; transform: translateZ(calc(var(--T) + 6px)); }
+.story-stage[data-step="6"] .l-frame { opacity: 1; transform: none; }
 .story-stage[data-step="6"] .paper-bg { background: var(--surface-2); }
+.no-js .tg .plate { transform: none; }
 
 /* Orchideen-Story: Teile bauen sich auf */
 .story-stage.dark { background: radial-gradient(120% 90% at 50% 8%, #26282e 0%, #121316 62%); }

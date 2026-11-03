@@ -45,7 +45,7 @@
                 <div class="story-stage dark" data-step="1" data-last="6" role="img" aria-label="Schematische Darstellung des Aufbaus: Reservoir, Stab, Wurzelholz, Orchidee und LED werden Schritt für Schritt sichtbar">
                     <div class="og"><svg class="orch" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" aria-hidden="true" focusable="false" aria-labelledby="t d">
 <title id="t">Orchideen-Bewässerungssystem</title>
-<desc id="d">Offenes, flaches Reservoir für Wasser und Pumpe, darauf ein senkrechter Stab. An einem schwebenden Wurzelholz sitzt eine Phalaenopsis-Orchidee, ihre Wurzeln liegen eng auf dem Holz, die Enden hängen frei. Überschüssiges Wasser tropft zurück ins Reservoir. Der Stab ist hohl, ein Schlauch führt von der Pumpe nach oben und endet in einem kleinen Sprühkopf knapp über der Wurzel. Eine flache LED-Leiste am Stabende beleuchtet die Pflanze von oben.</desc>
+<desc id="d">Offenes, flaches Reservoir mit dunklem Wasser und Pumpe. An der hinteren Kante steht ein senkrechter Stab. Ein schwebendes, nahezu kugeliges Wurzelholz trägt eine Phalaenopsis-Orchidee, ihre dicken, silbrigen Velamen-Wurzeln umschlingen das Holz, die Enden hängen frei. Überschüssiges Wasser tropft zurück ins Reservoir. Der Stab ist hohl, ein Schlauch führt von der Pumpe nach oben und endet in einem kleinen Sprühkopf. Ein flaches, fast quadratisches LED-Modul sitzt an einem Arm am Stabende versetzt über der Pflanze, sein Lichtkegel hat den Umriss des Moduls.</desc>
 <style>
 @supports (--a:0){.k{stroke:var(--ink,#1a1a1a)}
 .paper{fill:var(--paper,#fcfdff)}
@@ -76,49 +76,51 @@
 </g>
 
 <g id="wasser">
-<path d="M64,405 H290 L326,380 H100 Z" fill="#388ad1" fill-opacity=".55" stroke-width="1.4"/>
-<path d="M50,442 H300 V473 Q300,482 291,482 H59 Q50,482 50,473 Z" fill="#388ad1"/>
-<path d="M56,450 Q76,445 96,450 T136,450 T176,450 T216,450 T256,450 T294,450" fill="none" stroke="#fcfdff" stroke-width="1.4" opacity=".8"/>
-<path d="M62,462 H110 M150,466 H230 M246,458 H282" fill="none" stroke="#fcfdff" stroke-width="1.4" opacity=".5"/>
-<path d="M300,442 L344,406 V440 Q344,446 338,451 L300,482 Z" fill="#388ad1" fill-opacity=".55" stroke-width="1.2"/>
+<path d="M64,405 H290 L326,380 H100 Z" fill="#23627f" fill-opacity=".78" stroke-width="1.4"/>
+<path d="M50,442 H300 V473 Q300,482 291,482 H59 Q50,482 50,473 Z" fill="#1c5570"/>
+<path d="M56,450 Q76,446 96,450 T136,450 T176,450 T216,450 T256,450 T294,450" fill="none" stroke="#9fc4d6" stroke-width="1.2" opacity=".55"/>
+<path d="M62,462 H110 M150,466 H230 M246,458 H282" fill="none" stroke="#9fc4d6" stroke-width="1.2" opacity=".3"/>
+<path d="M300,442 L344,406 V440 Q344,446 338,451 L300,482 Z" fill="#1c5570" fill-opacity=".8" stroke-width="1.2"/>
 </g>
 
 <g id="schlauch">
-<path d="M200,390 V240" fill="none" stroke="#388ad1" stroke-width="2.2" opacity=".9"/>
-<path d="M200,240 L190,247" fill="none" stroke-width="5"/>
-<path d="M200,240 L190,247" fill="none" stroke="#8c949c" stroke-width="2.6"/>
-<circle cx="200" cy="390" r="3" fill="#388ad1" stroke-width="1.4"/>
+<path d="M215,386 V250" fill="none" stroke="#23627f" stroke-width="2.2" opacity=".9"/>
+<path d="M215,250 L205,258" fill="none" stroke-width="5"/>
+<path d="M215,250 L205,258" fill="none" stroke="#8c949c" stroke-width="2.6"/>
+<circle cx="215" cy="386" r="3" fill="#23627f" stroke-width="1.4"/>
 </g>
 
 <g id="stab">
-<ellipse cx="200" cy="392" rx="11" ry="4" fill="#8c949c"/>
-<rect x="197.5" y="49" width="5" height="343" fill="#8c949c"/>
-<path d="M199.3,54 V388" stroke="#fcfdff" stroke-width="1.2" fill="none" opacity=".8"/>
+<rect x="204" y="368" width="22" height="9" rx="2" fill="#8c949c"/>
+<rect x="212.5" y="49" width="5" height="322" fill="#8c949c"/>
+<path d="M214.3,54 V366" stroke="#fcfdff" stroke-width="1.2" fill="none" opacity=".8"/>
 </g>
 
 <g id="holz">
-<path d="M116,272 C126,254 160,247 196,248 C232,248 258,254 268,268 C270,279 250,285 226,284 C200,289 170,288 144,285 C126,283 114,279 116,272Z" fill="#5a3a24"/>
-<path d="M132,283 C124,290 118,298 112,304 M252,281 C260,289 266,296 270,304 M170,287 C168,294 166,298 160,302" fill="none" stroke="#5a3a24" stroke-width="7"/>
-<path d="M126,270 C150,262 182,260 214,262 C236,263 252,268 262,272" fill="none" stroke="#3a2415" stroke-width="1.2" opacity=".7"/>
-<rect x="192" y="281" width="16" height="22" rx="3" fill="#8c949c"/>
-<rect x="196" y="283" width="8" height="2" rx="1" fill="#fcfdff" stroke="none" opacity=".7"/>
+<path d="M144,276 C144,252 168,242 196,242 C226,242 250,252 250,276 C250,298 226,308 196,308 C168,308 144,298 144,276Z" fill="#5a3a24"/>
+<path d="M146,280 C136,284 128,290 122,298 M250,278 C260,282 266,288 272,296 M192,306 C192,312 190,316 186,320" fill="none" stroke="#5a3a24" stroke-width="8"/>
+<path d="M156,266 C172,256 200,254 232,258 M158,286 C180,296 214,298 240,288" fill="none" stroke="#3a2415" stroke-width="1.2" opacity=".7"/>
+<path d="M214,300 H228 V312 Q228,316 224,316 H214 Z" fill="#8c949c"/>
+<rect x="216" y="302" width="8" height="2" rx="1" fill="#fcfdff" stroke="none" opacity=".7"/>
 </g>
 
 <g id="lichtkegel" stroke="none">
-<polygon class="cone" opacity=".25" points="172,53 228,53 292,268 108,268" fill="url(#lg)"/>
+<polygon class="cone" opacity=".25" points="226,62 300,62 369,268 155,268" fill="url(#lg)"/>
+<path class="cone" d="M155,268 H369 L383,250 H169 Z" fill="#f5c542" opacity=".22"/>
 </g>
 
 <g id="orchidee">
 <g id="wurzeln">
-<g fill="none"><path d="M188,250 C168,250 148,254 132,264 C124,270 124,284 126,298" stroke-width="4.4"/><path d="M192,251 C176,257 160,262 148,272 C143,280 143,292 145,306" stroke-width="4.4"/><path d="M196,251 C214,251 238,254 252,262 C262,268 264,282 262,296" stroke-width="4.4"/><path d="M200,252 C214,258 230,264 242,272 C248,280 248,292 246,304" stroke-width="4.4"/><path d="M190,252 C176,262 168,276 164,290 C163,298 164,304 166,312" stroke-width="4.4"/><path d="M198,252 C206,264 216,278 220,292 C221,300 220,306 218,314" stroke-width="4.4"/><path d="M170,256 C184,262 204,262 222,257" stroke-width="4.4"/><path d="M150,262 C170,268 200,270 232,264" stroke-width="4.4"/></g>
-<g fill="none"><path d="M188,250 C168,250 148,254 132,264 C124,270 124,284 126,298" stroke="#c9d1b3" stroke-width="2"/><path d="M192,251 C176,257 160,262 148,272 C143,280 143,292 145,306" stroke="#c9d1b3" stroke-width="2"/><path d="M196,251 C214,251 238,254 252,262 C262,268 264,282 262,296" stroke="#c9d1b3" stroke-width="2"/><path d="M200,252 C214,258 230,264 242,272 C248,280 248,292 246,304" stroke="#c9d1b3" stroke-width="2"/><path d="M190,252 C176,262 168,276 164,290 C163,298 164,304 166,312" stroke="#c9d1b3" stroke-width="2"/><path d="M198,252 C206,264 216,278 220,292 C221,300 220,306 218,314" stroke="#c9d1b3" stroke-width="2"/><path d="M170,256 C184,262 204,262 222,257" stroke="#c9d1b3" stroke-width="2"/><path d="M150,262 C170,268 200,270 232,264" stroke="#c9d1b3" stroke-width="2"/></g>
+<g fill="none"><path d="M178,246 C160,250 146,262 142,278 C140,290 144,302 150,312" stroke-width="6.6"/><path d="M196,244 C182,256 174,274 176,294 C177,304 180,314 184,324" stroke-width="6.6"/><path d="M206,246 C220,256 226,276 224,296 C223,306 220,316 222,326" stroke-width="6.6"/><path d="M216,248 C236,252 250,264 252,282 C253,294 250,304 246,314" stroke-width="6.6"/><path d="M170,252 C186,262 214,264 236,254" stroke-width="6.6"/><path d="M152,270 C176,282 214,284 244,272" stroke-width="6.6"/><path d="M160,292 C184,302 210,302 238,294" stroke-width="6.6"/><path d="M188,250 C176,266 164,284 156,300 C154,306 154,312 156,318" stroke-width="6.6"/><path d="M200,252 C208,270 212,290 210,306 C210,314 214,320 218,322" stroke-width="6.6"/></g>
+<g fill="none"><path d="M178,246 C160,250 146,262 142,278 C140,290 144,302 150,312" stroke="#d3dac4" stroke-width="3.6"/><path d="M196,244 C182,256 174,274 176,294 C177,304 180,314 184,324" stroke="#d3dac4" stroke-width="3.6"/><path d="M206,246 C220,256 226,276 224,296 C223,306 220,316 222,326" stroke="#d3dac4" stroke-width="3.6"/><path d="M216,248 C236,252 250,264 252,282 C253,294 250,304 246,314" stroke="#d3dac4" stroke-width="3.6"/><path d="M170,252 C186,262 214,264 236,254" stroke="#d3dac4" stroke-width="3.6"/><path d="M152,270 C176,282 214,284 244,272" stroke="#d3dac4" stroke-width="3.6"/><path d="M160,292 C184,302 210,302 238,294" stroke="#d3dac4" stroke-width="3.6"/><path d="M188,250 C176,266 164,284 156,300 C154,306 154,312 156,318" stroke="#d3dac4" stroke-width="3.6"/><path d="M200,252 C208,270 212,290 210,306 C210,314 214,320 218,322" stroke="#d3dac4" stroke-width="3.6"/></g>
+<circle cx="150" cy="312" r="3.4" fill="#5f9a3c" stroke-width="1.2"/><circle cx="184" cy="324" r="3.4" fill="#5f9a3c" stroke-width="1.2"/><circle cx="222" cy="326" r="3.4" fill="#5f9a3c" stroke-width="1.2"/><circle cx="246" cy="314" r="3.4" fill="#5f9a3c" stroke-width="1.2"/><circle cx="156" cy="318" r="3.4" fill="#5f9a3c" stroke-width="1.2"/><circle cx="218" cy="322" r="3.4" fill="#5f9a3c" stroke-width="1.2"/>
 </g>
 <g id="blaetter">
-<path d="M190,247 C214,214 258,206 286,224 C274,250 230,260 190,251 Z" fill="#3b6b3a"/>
-<path d="M190,247 C166,214 120,208 96,228 C106,252 150,260 190,251 Z" fill="#3b6b3a"/>
-<path d="M190,248 C188,224 196,206 214,196 C220,218 210,238 200,248 Z" fill="#4f8a4a"/>
-<path d="M188,252 C204,230 244,228 272,246 C250,266 214,266 188,252 Z" fill="#4f8a4a"/>
-<path d="M188,248 C170,234 136,232 108,240 C128,262 164,264 188,254 Z" fill="#4f8a4a"/>
+<path d="M190,247 C214,214 258,206 286,224 C274,250 230,260 190,251 Z" fill="#3d6040"/>
+<path d="M190,247 C166,214 120,208 96,228 C106,252 150,260 190,251 Z" fill="#3d6040"/>
+<path d="M190,248 C188,224 196,206 214,196 C220,218 210,238 200,248 Z" fill="#557a4e"/>
+<path d="M188,252 C204,230 244,228 272,246 C250,266 214,266 188,252 Z" fill="#557a4e"/>
+<path d="M188,248 C170,234 136,232 108,240 C128,262 164,264 188,254 Z" fill="#557a4e"/>
 <g fill="none" stroke-width="1.2">
 <path d="M190,248 C225,232 255,226 280,223 M190,248 C150,232 125,228 102,226 M192,247 C198,228 205,212 213,199 M190,253 C215,243 240,243 264,246 M188,251 C160,244 135,243 116,241"/>
 </g>
@@ -133,8 +135,11 @@
 </g>
 
 <g id="led">
-<rect x="158" y="40" width="84" height="9" rx="3" fill="#565d64" stroke-width="1.8"/>
-<rect x="166" y="49" width="68" height="3.5" rx="1.7" fill="#f5c542" stroke-width="1.4"/>
+<path d="M215,52 C215,38 226,34 244,36" fill="none" stroke-width="6.4"/>
+<path d="M215,52 C215,38 226,34 244,36" fill="none" stroke="#8c949c" stroke-width="3"/>
+<path d="M226,48 L302,48 L320,38 L244,38 Z" fill="#8c949c" stroke-width="1.8"/>
+<rect x="226" y="48" width="76" height="13" rx="3" fill="#565d64" stroke-width="1.8"/>
+<rect x="234" y="61" width="60" height="3.5" rx="1.7" fill="#f5c542" stroke-width="1.4"/>
 </g>
 
 <g id="tropfen">
@@ -148,7 +153,7 @@
                     <div class="dots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
                 </div>
             </div>
-            <ol class="steps"><li class="step" data-step="1" id="schritt-1"><span class="n">Schritt 1 / 6</span><h2>Idee</h2><p>Orchideen sitzen in der Natur auf Ästen, ihre Wurzeln hängen frei in der Luft. Das System bildet diesen Platz nach: Wasser unten, Pflanze an der schwebenden Wurzel, Licht von oben.</p></li><li class="step" data-step="2" id="schritt-2"><span class="n">Schritt 2 / 6</span><h2>Reservoir</h2><p>Unten sitzt das flache Reservoir aus mattem Aluminium. Es hält das Wasser und die Pumpe. Oben ist es offen: Was die Pflanze nicht aufnimmt, tropft zurück.</p></li><li class="step" data-step="3" id="schritt-3"><span class="n">Schritt 3 / 6</span><h2>Stab</h2><p>In der Mitte geht ein hohler Stab senkrecht nach oben. Er trägt die Pflanze und das Licht, innen läuft der Schlauch von der Pumpe.</p></li><li class="step" data-step="4" id="schritt-4"><span class="n">Schritt 4 / 6</span><h2>Wurzelholz</h2><p>Auf halber Höhe hängt ein breites Stück Wurzelholz an einer Klemme am Stab. Knapp darüber tritt der Schlauch aus, ein kleiner Sprühkopf befeuchtet die Wurzeln unauffällig.</p></li><li class="step" data-step="5" id="schritt-5"><span class="n">Schritt 5 / 6</span><h2>Orchidee</h2><p>Die Orchidee sitzt auf dem Wurzelholz, ihre Wurzeln liegen eng an. Die Enden hängen frei in der Luft, wie am Ast im Wald.</p></li><li class="step" data-step="6" id="schritt-6"><span class="n">Schritt 6 / 6</span><h2>Licht</h2><p>Ganz oben am Stabende sitzt eine flache LED-Leiste. Sie beleuchtet die Orchidee von oben.</p></li></ol>
+            <ol class="steps"><li class="step" data-step="1" id="schritt-1"><span class="n">Schritt 1 / 6</span><h2>Idee</h2><p>Orchideen sitzen in der Natur auf Ästen, ihre Wurzeln hängen frei in der Luft. Das System bildet diesen Platz nach: Wasser unten, Pflanze an der schwebenden Wurzel, Licht von oben.</p></li><li class="step" data-step="2" id="schritt-2"><span class="n">Schritt 2 / 6</span><h2>Reservoir</h2><p>Unten sitzt das flache Reservoir aus mattem Aluminium. Es hält das Wasser und die Pumpe. Oben ist es offen: Was die Pflanze nicht aufnimmt, tropft zurück.</p></li><li class="step" data-step="3" id="schritt-3"><span class="n">Schritt 3 / 6</span><h2>Stab</h2><p>An der hinteren Kante des Reservoirs steht ein hohler Stab und geht senkrecht nach oben. Er trägt die Pflanze und das Licht, innen läuft der Schlauch von der Pumpe.</p></li><li class="step" data-step="4" id="schritt-4"><span class="n">Schritt 4 / 6</span><h2>Wurzelholz</h2><p>Auf halber Höhe hängt ein kompaktes, fast kugeliges Stück Wurzelholz an einer Klemme am Stab. Hinter der Pflanze tritt der Schlauch aus, ein kleiner Sprühkopf befeuchtet die Wurzeln unauffällig.</p></li><li class="step" data-step="5" id="schritt-5"><span class="n">Schritt 5 / 6</span><h2>Orchidee</h2><p>Die Orchidee sitzt oben auf dem Wurzelholz, ihre dicken, silbrigen Wurzeln umschlingen es. Die runden Enden hängen frei in der Luft, wie am Ast im Wald.</p></li><li class="step" data-step="6" id="schritt-6"><span class="n">Schritt 6 / 6</span><h2>Licht</h2><p>Am Stabende sitzt an einem kurzen Arm ein flaches, fast quadratisches LED-Modul, versetzt über der Pflanze. Sein Lichtkegel hat den Umriss des Moduls und beleuchtet die Orchidee von oben.</p></li></ol>
         </div>
 
         <section class="story-cta" aria-labelledby="cta-h">

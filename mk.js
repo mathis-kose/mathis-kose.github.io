@@ -51,10 +51,11 @@
         var total = parseInt(st.getAttribute('data-frames'), 10) || 182;
         var kf = (st.getAttribute('data-keys') || '').split(',').map(Number);
         if (kf.length !== stepEls.length) return;
+        var sl = document.querySelector('.steps'); if (sl) sl.classList.add('long');
         var cv = document.createElement('canvas');
         cv.className = 'render'; cv.setAttribute('aria-hidden', 'true');
         var ctx = cv.getContext('2d');
-        var frames = new Array(total), ready = false, want = 0, drawn = -1;
+        var frames = new Array(total), ready = false, want = 0, cur = 0, drawn = '';
         function name(i) { return base + 'f' + (i < 10 ? '00' : i < 100 ? '0' : '') + i + '.webp'; }
         function load(i, cb) {
             if (frames[i]) { cb && cb(); return; }
@@ -63,30 +64,53 @@
             im.onerror = function () { cb && cb(true); };
             im.decoding = 'async'; im.src = name(i);
         }
-        function nearest(i) {
-            for (var d = 0; d < total; d++) {
-                var a = i - d, b = i + d;
-                if (a >= 0 && frames[a] && frames[a].ok) return a;
-                if (b < total && frames[b] && frames[b].ok) return b;
-            }
-            return -1;
-        }
+        function okf(i) { return i >= 0 && i < total && frames[i] && frames[i].ok; }
+        function lower(i) { for (var k = Math.floor(i); k >= 0; k--) if (okf(k)) return k; return -1; }
+        function upper(i) { for (var k = Math.ceil(i); k < total; k++) if (okf(k)) return k; return -1; }
         function size() {
             var r = st.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
             var w = Math.round(r.width * dpr), h = Math.round(r.height * dpr);
-            if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; drawn = -1; }
+            if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; drawn = ''; }
         }
-        function draw() {
-            if (!ready) return;
-            var i = nearest(Math.max(0, Math.min(total - 1, Math.round(want))));
-            if (i < 0 || i === drawn) return;
-            var im = frames[i]; size();
+        function put(im, alpha) {
             var s = Math.min(cv.width / im.naturalWidth, cv.height / im.naturalHeight);
             var w = im.naturalWidth * s, h = im.naturalHeight * s;
-            ctx.clearRect(0, 0, cv.width, cv.height);
+            ctx.globalAlpha = alpha;
             ctx.drawImage(im, (cv.width - w) / 2, (cv.height - h) / 2, w, h);
-            drawn = i;
         }
+        // Zeichnet die Position cur: Nachbarframes werden weich ueberblendet, damit jede Scrollposition ein eigenes Bild hat
+        function draw() {
+            if (!ready) return;
+            var c = Math.max(0, Math.min(total - 1, cur));
+            var lo = lower(c), hi = upper(c);
+            if (lo < 0 && hi < 0) return;
+            if (lo < 0) lo = hi;
+            if (hi < 0) hi = lo;
+            var t = hi === lo ? 0 : (c - lo) / (hi - lo);
+            size();
+            var key = lo + ':' + hi + ':' + Math.round(t * 64);
+            if (key === drawn) return;
+            ctx.globalAlpha = 1; ctx.clearRect(0, 0, cv.width, cv.height);
+            put(frames[lo], 1);
+            if (t > 0.01 && hi !== lo) put(frames[hi], t);
+            ctx.globalAlpha = 1; drawn = key;
+        }
+        // Honig-Traegheit: die Anzeige folgt der Scrollposition gedaempft und mit Geschwindigkeitsgrenze (nur hier, die Seite scrollt normal)
+        var honey = !reduce && !(window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
+        var raf = 0, last = 0;
+        function step(now) {
+            raf = 0;
+            var dt = Math.min(0.05, (now - last) / 1000 || 0.016); last = now;
+            var d = want - cur;
+            if (honey) {
+                var k = 1 - Math.exp(-dt / 0.14), vmax = 70 * dt;   // Zeitkonstante 140 ms, max. 70 Frames/s
+                var mv = d * k; if (mv > vmax) mv = vmax; else if (mv < -vmax) mv = -vmax;
+                cur += mv;
+            } else cur = want;
+            draw();
+            if (Math.abs(want - cur) > 0.003) raf = requestAnimationFrame(step); else { cur = want; draw(); }
+        }
+        function kick() { if (!raf) { last = performance.now(); raf = requestAnimationFrame(step); } }
         function update() {
             var ref = window.innerHeight * (window.matchMedia('(max-width: 899px)').matches ? 0.62 : 0.5);
             var c = [];
@@ -99,19 +123,20 @@
                     if (c[i] <= 0 && c[i + 1] > 0) { f = kf[i] + (kf[i + 1] - kf[i]) * (-c[i] / (c[i + 1] - c[i])); break; }
                 }
             }
-            want = f; draw();
+            want = f; kick();
         }
         var tick = false;
         function onScroll() { if (tick) return; tick = true; requestAnimationFrame(function () { tick = false; update(); }); }
         load(0, function (err) {
             if (err) return;                      // ohne Bildfolge bleibt die CSS-3D-Buehne
             ready = true; st.classList.add('has-render');
+            var gr = st.closest('.story-grid'); if (gr) gr.classList.add('big');
             st.insertBefore(cv, st.firstChild);
             window.addEventListener('scroll', onScroll, { passive: true });
-            window.addEventListener('resize', function () { drawn = -1; onScroll(); });
-            update();
+            window.addEventListener('resize', function () { drawn = ''; onScroll(); });
+            update(); cur = want; draw();
             [8, 4, 2, 1].forEach(function (stride) {
-                for (var i = 0; i < total; i += stride) { (function (k) { setTimeout(function () { load(k, function () { drawn = -1; draw(); }); }, stride === 8 ? 0 : 150 * (9 - stride)); })(i); }
+                for (var i = 0; i < total; i += stride) { (function (k) { setTimeout(function () { load(k, function () { drawn = ''; draw(); }); }, stride === 8 ? 0 : 150 * (9 - stride)); })(i); }
             });
         });
     })();

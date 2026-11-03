@@ -9,12 +9,12 @@
     <meta name="theme-color" content="#0d0d0e" media="(prefers-color-scheme: dark)">
     <script src="theme.js"></script>
     <title>Orchideen-Bewässerungssystem | MK-Projects</title>
-    <meta name="description" content="Selbstgebautes System für Orchideen: Wasser-Reservoir, Stab, schwebendes Holz mit Orchidee und LED. Daten und Verfügbarkeit folgen.">
+    <meta name="description" content="Selbstgebautes System für Orchideen: Wasser-Reservoir mit Pumpe, Stab, schwebende Wurzel mit Orchidee und LED. Daten und Verfügbarkeit folgen.">
     <link rel="canonical" href="https://mathis-projects.com/orchideen.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="MK-Projects">
     <meta property="og:title" content="Orchideen-Bewässerungssystem | MK-Projects">
-    <meta property="og:description" content="Selbstgebautes System für Orchideen: Wasser-Reservoir, Stab, schwebendes Holz mit Orchidee und LED. Daten und Verfügbarkeit folgen.">
+    <meta property="og:description" content="Selbstgebautes System für Orchideen: Wasser-Reservoir mit Pumpe, Stab, schwebende Wurzel mit Orchidee und LED. Daten und Verfügbarkeit folgen.">
     <meta property="og:image" content="https://mathis-projects.com/img/og-orchideen.png">
     <meta property="og:url" content="https://mathis-projects.com/orchideen.html">
     <meta name="twitter:card" content="summary_large_image">
@@ -48,7 +48,7 @@
                 <template id="o-3d"><div class="mv-host" data-model="3d/orchideen-system.glb" data-alt="Orchideen-Bewässerungssystem als 3D-Modell, mit der Maus oder dem Finger drehbar"><img class="mv-poster" src="img/3d/orchideen-poster.webp" width="560" height="1020" alt="Orchideen-Bewässerungssystem (3D-Ansicht)" decoding="async"><span class="mv-hint" aria-hidden="true">Ziehen zum Drehen</span></div></template>
                 <template id="o-model"><svg class="orch" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img" aria-labelledby="t d">
 <title id="t">Orchideen-Bewässerungssystem</title>
-<desc id="d">Flaches Wasser-Reservoir mit Wasserstand, dahinter ein dünner Stab. Ein freischwebendes Stück Korkeichenholz trägt eine Phalaenopsis-Orchidee mit Luftwurzeln, Blättern und überhängendem Blütenstiel. Ein Schlauch führt vom Reservoir zum Holz. Eine LED-Leuchte am Stabende beleuchtet die Orchidee von oben.</desc>
+<desc id="d">Flaches Reservoir für Wasser und Pumpe, darauf ein senkrechter Stab. An einer schwebenden Wurzel-Halterung hängt eine Phalaenopsis-Orchidee mit frei hängenden Wurzeln, Blättern und überhängendem Blütenstiel. Eine flache LED-Leiste am Stabende beleuchtet sie von oben.</desc>
 <style>
 @supports (--a:0){.k{stroke:var(--ink,#1a1a1a)}
 .paper{fill:var(--paper,#fcfdff)}
@@ -87,43 +87,34 @@
 </g>
 
 <g id="schlauch">
-<path d="M148,400 C148,370 158,330 150,276" fill="none" stroke-width="7"/>
-<path d="M148,400 C148,370 158,330 150,276" fill="none" stroke="#bfdcf4" stroke-width="3.4"/>
-<circle cx="148" cy="400" r="4.5" fill="#388ad1" stroke-width="1.6"/>
+<path d="M200,390 V296" fill="none" stroke="#388ad1" stroke-width="2.2" opacity=".9"/>
+<rect x="177" y="291" width="16" height="5" rx="2" fill="#c89a4a"/>
+<circle cx="200" cy="390" r="3" fill="#388ad1" stroke-width="1.4"/>
 </g>
 
 <g id="stab">
-<ellipse cx="300" cy="384" rx="11" ry="4" fill="#8c949c"/>
-<rect x="297.5" y="42" width="5" height="342" fill="#8c949c"/>
-<path d="M299.3,48 V380" stroke="#fcfdff" stroke-width="1.2" fill="none" opacity=".8"/>
-<circle cx="300" cy="42" r="3.4" fill="#8c949c"/>
+<ellipse cx="200" cy="392" rx="11" ry="4" fill="#8c949c"/>
+<rect x="197.5" y="49" width="5" height="343" fill="#8c949c"/>
+<path d="M199.3,54 V388" stroke="#fcfdff" stroke-width="1.2" fill="none" opacity=".8"/>
 </g>
 
 <g id="holz">
-<path d="M296,252 L270,246 C240,242 205,248 172,244 C142,240 120,244 108,254 C99,263 103,277 118,281 C150,288 200,285 240,283 C262,282 280,279 296,275 Z" fill="#8a5a3b"/>
-<path d="M104,268 C108,279 150,289 200,286 C240,284 270,282 296,276 L296,268 C260,274 200,278 150,274 C128,272 112,270 104,268Z" fill="#6b4329" stroke="none"/>
-<g fill="none" stroke="#6b4329" stroke-width="1.5">
-<path d="M112,258 C150,252 190,260 232,254 C256,251 275,254 292,258"/>
-<path d="M120,266 C160,260 200,268 250,262 C268,260 280,262 292,266"/>
-<path d="M126,274 C170,270 214,276 268,271"/>
-</g>
-<path d="M130,250 C150,247 175,250 200,248 M220,249 C240,247 262,250 282,252" fill="none" stroke="#b27a52" stroke-width="1.4"/>
-<ellipse cx="236" cy="266" rx="6" ry="4" fill="#6b4329" stroke-width="1.2"/>
-<ellipse cx="136" cy="264" rx="3.5" ry="2.4" fill="#6b4329" stroke-width="1"/>
-<rect x="291" y="244" width="18" height="38" rx="3" fill="#565d64"/>
-<circle cx="300" cy="253" r="2" fill="#fcfdff" stroke-width="1"/>
-<circle cx="300" cy="273" r="2" fill="#fcfdff" stroke-width="1"/>
+<ellipse cx="190" cy="264" rx="27" ry="21" fill="#5f8a3e"/>
+<path d="M166,268 C170,280 182,286 194,286 C208,286 216,278 217,268 C212,274 200,278 190,278 C178,278 170,274 166,268Z" fill="#41622a" stroke="none"/>
+<g fill="none" stroke="#41622a" stroke-width="1.3"><path d="M172,258 C178,252 188,252 194,256 M190,252 C198,248 208,250 212,256 M176,270 C184,266 194,268 202,272"/></g>
+<rect x="192" y="281" width="16" height="22" rx="3" fill="#565d64"/>
+<circle cx="205" cy="287" r="2" fill="#fcfdff" stroke-width="1"/>
+<circle cx="205" cy="298" r="2" fill="#fcfdff" stroke-width="1"/>
 </g>
 
 <g id="lichtkegel" stroke="none">
-<polygon class="cone" opacity=".25" points="174,64 226,64 292,268 108,268" fill="url(#lg)"/>
+<polygon class="cone" opacity=".25" points="172,53 228,53 292,268 108,268" fill="url(#lg)"/>
 </g>
 
 <g id="orchidee">
 <g id="wurzeln">
-<g fill="none"><path d="M178,248 C160,252 140,252 124,262 C116,270 118,290 124,302" stroke-width="5.4"/><path d="M186,250 C176,262 172,280 170,296 C168,304 170,312 174,320" stroke-width="5.4"/><path d="M196,250 C205,262 214,278 212,296 C211,306 206,314 209,324" stroke-width="5.4"/><path d="M205,248 C225,256 240,264 250,278 C254,288 252,298 246,308" stroke-width="5.4"/><path d="M214,247 C234,249 258,252 278,258" stroke-width="5.4"/><path d="M180,247 C160,246 138,250 116,254" stroke-width="5.4"/></g>
-<g fill="none" stroke-width="2.8"><path d="M178,248 C160,252 140,252 124,262 C116,270 118,290 124,302" stroke="#c9d1b3" stroke-width="2.8"/><path d="M186,250 C176,262 172,280 170,296 C168,304 170,312 174,320" stroke="#c9d1b3" stroke-width="2.8"/><path d="M196,250 C205,262 214,278 212,296 C211,306 206,314 209,324" stroke="#c9d1b3" stroke-width="2.8"/><path d="M205,248 C225,256 240,264 250,278 C254,288 252,298 246,308" stroke="#c9d1b3" stroke-width="2.8"/><path d="M214,247 C234,249 258,252 278,258" stroke="#c9d1b3" stroke-width="2.8"/><path d="M180,247 C160,246 138,250 116,254" stroke="#c9d1b3" stroke-width="2.8"/></g>
-<circle cx="124" cy="302" r="2.8" fill="#4f8a4a" stroke-width="1.2"/><circle cx="174" cy="320" r="2.8" fill="#4f8a4a" stroke-width="1.2"/><circle cx="209" cy="324" r="2.8" fill="#4f8a4a" stroke-width="1.2"/><circle cx="246" cy="308" r="2.8" fill="#4f8a4a" stroke-width="1.2"/>
+<g fill="none"><path d="M176,276 C168,288 164,300 168,318" stroke-width="5.4"/><path d="M184,282 C182,298 178,312 180,334" stroke-width="5.4"/><path d="M193,284 C194,300 198,316 195,338" stroke-width="5.4"/><path d="M203,280 C211,292 215,306 211,324" stroke-width="5.4"/><path d="M171,266 C160,276 154,292 156,308" stroke-width="5.4"/><path d="M209,268 C220,280 224,294 220,312" stroke-width="5.4"/><path d="M168,262 C176,274 190,278 204,272" stroke-width="5.4"/><path d="M172,254 C186,266 200,266 210,256" stroke-width="5.4"/></g>
+<g fill="none"><path d="M176,276 C168,288 164,300 168,318" stroke="#8a5a3b" stroke-width="2.8"/><path d="M184,282 C182,298 178,312 180,334" stroke="#8a5a3b" stroke-width="2.8"/><path d="M193,284 C194,300 198,316 195,338" stroke="#8a5a3b" stroke-width="2.8"/><path d="M203,280 C211,292 215,306 211,324" stroke="#8a5a3b" stroke-width="2.8"/><path d="M171,266 C160,276 154,292 156,308" stroke="#8a5a3b" stroke-width="2.8"/><path d="M209,268 C220,280 224,294 220,312" stroke="#8a5a3b" stroke-width="2.8"/><path d="M168,262 C176,274 190,278 204,272" stroke="#8a5a3b" stroke-width="2.8"/><path d="M172,254 C186,266 200,266 210,256" stroke="#8a5a3b" stroke-width="2.8"/></g>
 </g>
 <g id="blaetter">
 <path d="M190,247 C214,214 258,206 286,224 C274,250 230,260 190,251 Z" fill="#3b6b3a"/>
@@ -145,16 +136,14 @@
 </g>
 
 <g id="led">
-<rect x="228" y="53" width="74" height="4" fill="#8c949c" stroke-width="1.6"/>
-<rect x="293" y="46" width="14" height="18" rx="3" fill="#565d64"/>
-<rect x="166" y="50" width="68" height="10" rx="5" fill="#8c949c"/>
-<rect x="176" y="60" width="48" height="4" rx="2" fill="#f5c542" stroke-width="1.4"/>
+<rect x="158" y="40" width="84" height="9" rx="3" fill="#565d64" stroke-width="1.8"/>
+<rect x="166" y="49" width="68" height="3.5" rx="1.7" fill="#f5c542" stroke-width="1.4"/>
 </g>
 
 <g id="tropfen">
-<g transform="translate(151 372)"><path class="drop" opacity="0" d="M0,-5 C3,-1 4,1 4,3 A4,4 0 1 1 -4,3 C-4,1 -3,-1 0,-5Z" fill="#388ad1" stroke-width="1.4"/></g>
-<g transform="translate(152 372)"><path class="drop2" opacity="0" d="M0,-5 C3,-1 4,1 4,3 A4,4 0 1 1 -4,3 C-4,1 -3,-1 0,-5Z" fill="#388ad1" stroke-width="1.4"/></g>
-<g transform="translate(151 372)"><path class="drop3" opacity="0" d="M0,-5 C3,-1 4,1 4,3 A4,4 0 1 1 -4,3 C-4,1 -3,-1 0,-5Z" fill="#388ad1" stroke-width="1.4"/></g>
+<g transform="translate(185 299)"><path class="drop" opacity="0" d="M0,-5 C3,-1 4,1 4,3 A4,4 0 1 1 -4,3 C-4,1 -3,-1 0,-5Z" fill="#388ad1" stroke-width="1.4"/></g>
+<g transform="translate(184 299)"><path class="drop2" opacity="0" d="M0,-5 C3,-1 4,1 4,3 A4,4 0 1 1 -4,3 C-4,1 -3,-1 0,-5Z" fill="#388ad1" stroke-width="1.4"/></g>
+<g transform="translate(186 299)"><path class="drop3" opacity="0" d="M0,-5 C3,-1 4,1 4,3 A4,4 0 1 1 -4,3 C-4,1 -3,-1 0,-5Z" fill="#388ad1" stroke-width="1.4"/></g>
 </g>
 
 </g>
@@ -168,7 +157,7 @@
             <div class="pp-info">
                 <p class="eyebrow">Technik · Eigenbau</p>
                 <h1>Orchideen-Bewässerungssystem</h1>
-                <p class="lead">Ein Reservoir unten, ein Stab nach oben, ein schwebendes Stück Holz mit Orchidee und eine LED, die von oben leuchtet.</p>
+                <p class="lead">Ein Reservoir mit Pumpe unten, ein Stab nach oben, eine Orchidee an der schwebenden Wurzel und eine LED, die von oben leuchtet.</p>
                 <p><span class="chip"><i></i>Bald verfügbar</span></p>
 
                 <div class="buy">
@@ -195,10 +184,10 @@
             <div>
                 <h2 id="det-h">Technische Daten</h2>
                 <table class="specs">
-                    <tr><th scope="row">Reservoir</th><td>Größe etwa wie ein Schuhkarton. Maße <span class="todo">L × B × H in cm</span>, Volumen <span class="todo">Liter</span></td></tr>
+                    <tr><th scope="row">Reservoir</th><td>Flach, für Wasser und Pumpe. Maße <span class="todo">L × B × H in cm</span>, Volumen <span class="todo">Liter</span></td></tr>
                     <tr><th scope="row">Stab</th><td>Höhe <span class="todo">cm</span>, Material <span class="todo">folgt</span></td></tr>
-                    <tr><th scope="row">Holz</th><td>Naturholz, Größe <span class="todo">cm</span> (jedes Stück ein Unikat)</td></tr>
-                    <tr><th scope="row">Beleuchtung</th><td>LED, minimalistisch am Stabende. Leistung <span class="todo">W</span>, Lichtfarbe <span class="todo">K</span></td></tr>
+                    <tr><th scope="row">Wurzelhalterung</th><td>Schwebende Wurzel am Stab, höhenverstellbar <span class="todo">zu klären</span>, Material <span class="todo">folgt</span></td></tr>
+                    <tr><th scope="row">Beleuchtung</th><td>Flache LED-Leiste am Stabende. Leistung <span class="todo">W</span>, Lichtfarbe <span class="todo">K</span></td></tr>
                     <tr><th scope="row">Stromversorgung</th><td><span class="todo">Spannung, Netzteil</span></td></tr>
                     <tr><th scope="row">Gewicht</th><td><span class="todo">kg</span></td></tr>
                 </table>
@@ -206,7 +195,7 @@
             <div>
                 <h2>Lieferumfang</h2>
                 <ul class="list">
-                    <li>Reservoir, Stab, Holz, LED mit Halterung</li>
+                    <li>Reservoir mit Pumpe, Stab, Wurzelhalterung, LED-Leiste</li>
                     <li>Netzteil / Zubehör <span class="todo">folgt</span></li>
                     <li>Aufbauanleitung <span class="todo">als PDF</span></li>
                     <li>Orchidee: im Lieferumfang? <span class="todo">folgt</span></li>

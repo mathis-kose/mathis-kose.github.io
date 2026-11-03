@@ -20,6 +20,14 @@
     <meta name="twitter:card" content="summary_large_image">
     <link rel="preload" href="fonts/poppins-latin-400.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="css/mk.css?v=20261103d">
+    <link rel="modulepreload" href="3d/model-viewer.min.js">
+    <link rel="preload" href="3d/orchideen-system.glb?v=20261104a" as="fetch" crossorigin>
+    <style>
+    /* Ladeanzeige: nur solange das Modell geladen wird (Poster bleibt sichtbar) */
+    .mv-host:has(model-viewer):not(.is-ready)::after{content:"";position:absolute;left:50%;bottom:9%;width:26px;height:26px;margin-left:-13px;border:2px solid rgba(128,128,128,.35);border-top-color:currentColor;border-radius:50%;animation:mvspin .9s linear infinite;pointer-events:none}
+    @keyframes mvspin{to{transform:rotate(360deg)}}
+    @media (prefers-reduced-motion:reduce){.mv-host:has(model-viewer):not(.is-ready)::after{animation:none;border-top-color:rgba(128,128,128,.35);opacity:.7}}
+    </style>
     <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 </head>

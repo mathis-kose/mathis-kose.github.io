@@ -47,8 +47,8 @@
         var st = document.querySelector('.story-stage[data-render]');
         var stepEls = document.querySelectorAll('.step');
         if (!st || !stepEls.length) return;
-        var base = st.getAttribute('data-render');
-        var total = parseInt(st.getAttribute('data-frames'), 10) || 86;
+        var base = (window.matchMedia('(max-width: 899px)').matches && st.getAttribute('data-render-m')) || st.getAttribute('data-render');
+        var total = parseInt(st.getAttribute('data-frames'), 10) || 182;
         var kf = (st.getAttribute('data-keys') || '').split(',').map(Number);
         if (kf.length !== stepEls.length) return;
         var cv = document.createElement('canvas');

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mathis-projects.com/sitemap.xml

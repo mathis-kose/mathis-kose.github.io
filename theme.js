@@ -32,7 +32,7 @@
         });
         if (mq && mq.addEventListener) mq.addEventListener('change', paint);
         paint();
-        var host = document.querySelector('footer p') || document.querySelector('footer') || document.body;
+        var host = document.querySelector('.footer-copy') || document.querySelector('footer p') || document.querySelector('footer') || document.body;
         host.appendChild(btn);
     });
 })();

@@ -42,6 +42,80 @@
     }
 
 
+    // Tiger-Story: Blender-Bildfolge, per Scrollposition vor- und zurueckgespult
+    (function () {
+        var st = document.querySelector('.story-stage[data-render]');
+        var stepEls = document.querySelectorAll('.step');
+        if (!st || !stepEls.length) return;
+        var base = st.getAttribute('data-render');
+        var total = parseInt(st.getAttribute('data-frames'), 10) || 86;
+        var kf = (st.getAttribute('data-keys') || '').split(',').map(Number);
+        if (kf.length !== stepEls.length) return;
+        var cv = document.createElement('canvas');
+        cv.className = 'render'; cv.setAttribute('aria-hidden', 'true');
+        var ctx = cv.getContext('2d');
+        var frames = new Array(total), ready = false, want = 0, drawn = -1;
+        function name(i) { return base + 'f' + (i < 10 ? '00' : i < 100 ? '0' : '') + i + '.webp'; }
+        function load(i, cb) {
+            if (frames[i]) { cb && cb(); return; }
+            var im = new Image(); frames[i] = im;
+            im.onload = function () { im.ok = true; cb && cb(); };
+            im.onerror = function () { cb && cb(true); };
+            im.decoding = 'async'; im.src = name(i);
+        }
+        function nearest(i) {
+            for (var d = 0; d < total; d++) {
+                var a = i - d, b = i + d;
+                if (a >= 0 && frames[a] && frames[a].ok) return a;
+                if (b < total && frames[b] && frames[b].ok) return b;
+            }
+            return -1;
+        }
+        function size() {
+            var r = st.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+            var w = Math.round(r.width * dpr), h = Math.round(r.height * dpr);
+            if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; drawn = -1; }
+        }
+        function draw() {
+            if (!ready) return;
+            var i = nearest(Math.max(0, Math.min(total - 1, Math.round(want))));
+            if (i < 0 || i === drawn) return;
+            var im = frames[i]; size();
+            var s = Math.min(cv.width / im.naturalWidth, cv.height / im.naturalHeight);
+            var w = im.naturalWidth * s, h = im.naturalHeight * s;
+            ctx.clearRect(0, 0, cv.width, cv.height);
+            ctx.drawImage(im, (cv.width - w) / 2, (cv.height - h) / 2, w, h);
+            drawn = i;
+        }
+        function update() {
+            var ref = window.innerHeight * (window.matchMedia('(max-width: 899px)').matches ? 0.62 : 0.5);
+            var c = [];
+            stepEls.forEach(function (s) { var r = s.getBoundingClientRect(); c.push((r.top + r.bottom) / 2 - ref); });
+            var n = c.length, f;
+            if (c[0] >= 0) f = kf[0];
+            else if (c[n - 1] <= 0) f = kf[n - 1];
+            else {
+                for (var i = 0; i < n - 1; i++) {
+                    if (c[i] <= 0 && c[i + 1] > 0) { f = kf[i] + (kf[i + 1] - kf[i]) * (-c[i] / (c[i + 1] - c[i])); break; }
+                }
+            }
+            want = f; draw();
+        }
+        var tick = false;
+        function onScroll() { if (tick) return; tick = true; requestAnimationFrame(function () { tick = false; update(); }); }
+        load(0, function (err) {
+            if (err) return;                      // ohne Bildfolge bleibt die CSS-3D-Buehne
+            ready = true; st.classList.add('has-render');
+            st.insertBefore(cv, st.firstChild);
+            window.addEventListener('scroll', onScroll, { passive: true });
+            window.addEventListener('resize', function () { drawn = -1; onScroll(); });
+            update();
+            [8, 4, 2, 1].forEach(function (stride) {
+                for (var i = 0; i < total; i += stride) { (function (k) { setTimeout(function () { load(k, function () { drawn = -1; draw(); }); }, stride === 8 ? 0 : 150 * (9 - stride)); })(i); }
+            });
+        });
+    })();
+
     // 3D-Modell: model-viewer wird erst geladen, wenn die Flaeche sichtbar wird. Bis dahin (und ohne WebGL) bleibt das Poster stehen.
     var mvScript;
     function load3d() {

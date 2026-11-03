@@ -414,6 +414,12 @@ details p { margin: .6rem 0 0; color: var(--muted); }
 .story-stage[data-step="6"] .paper-bg { background: var(--surface-2); }
 .no-js .tg .plate { transform: none; }
 
+/* Blender-Bildfolge: ersetzt die CSS-3D-Buehne, sobald die Frames geladen sind */
+.story-stage.has-render .board, .story-stage.has-render .gshadow { display: none; }
+.story-stage canvas.render { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; transition: opacity .5s ease; pointer-events: none; }
+.story-stage.has-render[data-step="6"] canvas.render { opacity: 0; }
+.story-stage.has-render .l-frame { z-index: 3; }
+
 /* Orchideen-Story: Teile bauen sich auf */
 .story-stage.dark { background: radial-gradient(120% 90% at 50% 8%, #26282e 0%, #121316 62%); }
 .story-stage.dark .og { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }

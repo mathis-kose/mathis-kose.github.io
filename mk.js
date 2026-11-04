@@ -101,7 +101,6 @@
         function draw() {
             if (!ready) return;
             var c = Math.max(0, Math.min(total - 1, cur));
-            st.classList.toggle('fin', c >= total - 3);   // erst am Ende der Bildfolge auf die CSS-Endansicht ueberblenden
             var lo = lower(c), hi = upper(c);
             if (lo < 0 && hi < 0) return;
             if (lo < 0) lo = hi;
@@ -152,6 +151,10 @@
                     if (c[i] <= 0 && c[i + 1] > 0) { f = warp(kf[i], kf[i + 1], -c[i] / (c[i + 1] - c[i])); break; }
                 }
             }
+            // Uebergang zur CSS-Endansicht: nach dem letzten Frame ueber ~70 % Bildschirmhoehe Scrollweg weich ueberblenden (scrollgesteuert, kein Zeit-Fade)
+            var fv = c[n - 1] <= 0 ? Math.min(1, -c[n - 1] / (window.innerHeight * 0.7)) : 0;
+            fv = fv * fv * (3 - 2 * fv);
+            st.style.setProperty('--fin', fv.toFixed(3)); st.classList.toggle('fin', fv >= 0.999);
             want = f; kick();
         }
         var tick = false;

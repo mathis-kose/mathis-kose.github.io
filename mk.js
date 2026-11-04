@@ -64,12 +64,27 @@
             im.onerror = function () { cb && cb(true); };
             im.decoding = 'async'; im.src = name(i);
         }
+        // Dekodieren vorziehen: Frames in Laufrichtung vor dem Zeichnen decodieren, damit mitten im Scrollen nichts haengt
+        var aheadAt = -99;
+        function ahead(c) {
+            if (Math.abs(c - aheadAt) < 3) return;
+            aheadAt = c;
+            var dir = want >= c ? 1 : -1, i0 = Math.round(c);
+            for (var k = -2; k <= 28; k++) {
+                var im = frames[i0 + dir * k];
+                if (im && im.ok && !im.dec) { im.dec = 1; if (im.decode) im.decode().catch(function () {}); }
+            }
+        }
         function okf(i) { return i >= 0 && i < total && frames[i] && frames[i].ok; }
         function lower(i) { for (var k = Math.floor(i); k >= 0; k--) if (okf(k)) return k; return -1; }
         function upper(i) { for (var k = Math.ceil(i); k < total; k++) if (okf(k)) return k; return -1; }
         function size() {
             var r = st.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
             var w = Math.round(r.width * dpr), h = Math.round(r.height * dpr);
+            var f0 = frames[0];
+            if (f0 && f0.naturalWidth) {   // nie feiner als die Quellbilder: spart Fuellrate, CSS skaliert hoch
+                if (w > f0.naturalWidth) { var q = f0.naturalWidth / w; w = f0.naturalWidth; h = Math.round(h * q); }
+            }
             if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; drawn = ''; }
         }
         function put(im, alpha) {
@@ -87,7 +102,7 @@
             if (lo < 0) lo = hi;
             if (hi < 0) hi = lo;
             var t = hi === lo ? 0 : (c - lo) / (hi - lo);
-            size();
+            size(); ahead(c);
             var key = lo + ':' + hi + ':' + Math.round(t * 64);
             if (key === drawn) return;
             ctx.globalAlpha = 1; ctx.clearRect(0, 0, cv.width, cv.height);
@@ -103,7 +118,7 @@
             var dt = Math.min(0.05, (now - last) / 1000 || 0.016); last = now;
             var d = want - cur;
             if (honey) {
-                var k = 1 - Math.exp(-dt / 0.14), vmax = 70 * dt;   // Zeitkonstante 140 ms, max. 70 Frames/s
+                var k = 1 - Math.exp(-dt / 0.14), vmax = 70 * (total / 182) * dt;   // Zeitkonstante 140 ms, max. 70 Frames/s bei 182 Frames, skaliert mit der Frame-Dichte
                 var mv = d * k; if (mv > vmax) mv = vmax; else if (mv < -vmax) mv = -vmax;
                 cur += mv;
             } else cur = want;
@@ -135,8 +150,8 @@
             window.addEventListener('scroll', onScroll, { passive: true });
             window.addEventListener('resize', function () { drawn = ''; onScroll(); });
             update(); cur = want; draw();
-            [8, 4, 2, 1].forEach(function (stride) {
-                for (var i = 0; i < total; i += stride) { (function (k) { setTimeout(function () { load(k, function () { drawn = ''; draw(); }); }, stride === 8 ? 0 : 150 * (9 - stride)); })(i); }
+            [16, 8, 4, 2, 1].forEach(function (stride, n) {
+                for (var i = 0; i < total; i += stride) { (function (k) { setTimeout(function () { load(k, function () { drawn = ''; draw(); }); }, 500 * n); })(i); }
             });
         });
     })();

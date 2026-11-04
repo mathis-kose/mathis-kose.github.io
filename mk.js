@@ -50,6 +50,8 @@
         var base = (window.matchMedia('(max-width: 899px)').matches && st.getAttribute('data-render-m')) || st.getAttribute('data-render');
         var total = parseInt(st.getAttribute('data-frames'), 10) || 182;
         var kf = (st.getAttribute('data-keys') || '').split(',').map(Number);
+        var mo = (st.getAttribute('data-motion') || '').split(',').map(Number);   // Bewegung je Frame: Scrollweg wird nach Bildaenderung verteilt, nicht nach Frame-Index
+        if (mo.length !== total) mo = null;
         if (kf.length !== stepEls.length) return;
         var sl = document.querySelector('.steps'); if (sl) sl.classList.add('long');
         var cv = document.createElement('canvas');
@@ -126,6 +128,15 @@
             if (Math.abs(want - cur) > 0.003) raf = requestAnimationFrame(step); else { cur = want; draw(); }
         }
         function kick() { if (!raf) { last = performance.now(); raf = requestAnimationFrame(step); } }
+        // Position u (0..1) im Abschnitt a..b -> Frame: Gewicht = 20 % gleichmaessig + 80 % Bewegung, damit Ruhephasen nicht den ganzen Scrollweg fressen
+        function warp(a, b, u) {
+            if (!mo || b - a < 2) return a + (b - a) * u;
+            var avg = 0, i; for (i = a + 1; i <= b; i++) avg += mo[i]; avg = avg / (b - a) || 1;
+            var w = [], tot = 0; for (i = a + 1; i <= b; i++) { var x = 0.2 + 0.8 * mo[i] / avg; w.push(x); tot += x; }
+            var goal = u * tot, acc = 0;
+            for (i = 0; i < w.length; i++) { if (acc + w[i] >= goal) return a + i + (goal - acc) / w[i]; acc += w[i]; }
+            return b;
+        }
         function update() {
             var ref = window.innerHeight * (window.matchMedia('(max-width: 899px)').matches ? 0.62 : 0.5);
             var c = [];
@@ -135,7 +146,7 @@
             else if (c[n - 1] <= 0) f = kf[n - 1];
             else {
                 for (var i = 0; i < n - 1; i++) {
-                    if (c[i] <= 0 && c[i + 1] > 0) { f = kf[i] + (kf[i + 1] - kf[i]) * (-c[i] / (c[i + 1] - c[i])); break; }
+                    if (c[i] <= 0 && c[i + 1] > 0) { f = warp(kf[i], kf[i + 1], -c[i] / (c[i + 1] - c[i])); break; }
                 }
             }
             want = f; kick();

@@ -250,6 +250,7 @@ p { margin: 0 0 1em; }
 .btn-ghost:hover { background: var(--surface-2); }
 .btn-off, .btn[disabled] { background: var(--btn-off-bg); color: var(--btn-off-text); cursor: not-allowed; transform: none; }
 .btn-block { display: flex; width: 100%; }
+.pay-note { font-size: .8rem; color: var(--muted); margin: .7rem 0 0; }
 
 /* ---------- Produktseite ---------- */
 .pp-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: start; }

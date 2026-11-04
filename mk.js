@@ -249,6 +249,20 @@
     }
     hydrate3d(document);
 
+    // PayPal: Kaufen-Link je Produkt. Link aus dem PayPal-Dashboard hier eintragen, dann wird der graue Button aktiv.
+    // Leer lassen = Button bleibt "Bald verfügbar". Es wird kein PayPal-Skript geladen, nur ein normaler Link.
+    var PAYPAL = { tiger: '' };
+    document.querySelectorAll('[data-paypal]').forEach(function (b) {
+        var url = PAYPAL[b.getAttribute('data-paypal')];
+        if (!/^https:\/\/(www\.)?paypal\.(com|me)\//.test(url || '')) return;
+        var a = document.createElement('a');
+        a.className = 'btn btn-primary btn-block';
+        a.href = url; a.rel = 'noopener';
+        a.textContent = 'Jetzt kaufen mit PayPal';
+        b.replaceWith(a);
+        document.querySelectorAll('[data-paypal-note]').forEach(function (n) { n.hidden = false; });
+    });
+
     // Produktgalerie: Hauptbild wechseln
     var main = document.querySelector('[data-gallery-main]');
     document.querySelectorAll('[data-gallery-thumb]').forEach(function (b) {

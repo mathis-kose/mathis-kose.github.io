@@ -58,6 +58,8 @@
         cv.className = 'render'; cv.setAttribute('aria-hidden', 'true');
         var ctx = cv.getContext('2d');
         var frames = new Array(total), ready = false, want = 0, cur = 0, drawn = '';
+        // Testhaken (nur mit ?probe in der URL): liefert Frame-Stand fuer tools/scrollfilm, aendert nichts am Ablauf
+        if (/[?&]probe\b/.test(location.search)) window.__mkProbe = function () { var n = 0; for (var i = 0; i < total; i++) if (frames[i] && frames[i].ok) n++; var f = frames[Math.max(0, Math.min(total - 1, Math.round(cur)))]; return { cur: cur, want: want, total: total, loaded: n, have: !!(f && f.ok), fin: st.classList.contains('fin') }; };
         function name(i) { return base + 'f' + (i < 10 ? '00' : i < 100 ? '0' : '') + i + '.webp?v=20261104f'; }
         function load(i, cb) {
             if (frames[i]) { cb && cb(); return; }

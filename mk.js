@@ -56,7 +56,7 @@
         cv.className = 'render'; cv.setAttribute('aria-hidden', 'true');
         var ctx = cv.getContext('2d');
         var frames = new Array(total), ready = false, want = 0, cur = 0, drawn = '';
-        function name(i) { return base + 'f' + (i < 10 ? '00' : i < 100 ? '0' : '') + i + '.webp'; }
+        function name(i) { return base + 'f' + (i < 10 ? '00' : i < 100 ? '0' : '') + i + '.webp?v=20261104c'; }
         function load(i, cb) {
             if (frames[i]) { cb && cb(); return; }
             var im = new Image(); frames[i] = im;

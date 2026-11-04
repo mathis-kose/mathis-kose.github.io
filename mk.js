@@ -139,6 +139,16 @@
             for (i = 0; i < w.length; i++) { if (acc + w[i] >= goal) return a + i + (goal - acc) / w[i]; acc += w[i]; }
             return b;
         }
+        // Endansicht auf den gerenderten Rahmen ausrichten: die CSS-Endansicht startet mit gleicher Groesse und Lage wie der Rahmen im letzten Blender-Frame (Rahmen = 61 % der Buehnenbreite, 2,8 % der Buehnenhoehe unter Mitte), damit die Ueberblendung nur ein Rahmen ist
+        var frImg = st.querySelector('.l-frame img');
+        function fit() {
+            if (!frImg || !st.clientWidth) return;
+            var ratio = (frImg.naturalWidth || 520) / (frImg.naturalHeight || 678);
+            var vis = Math.min(frImg.offsetWidth, frImg.offsetHeight * ratio);
+            if (!vis) return;
+            st.style.setProperty('--fs', (0.61 * st.clientWidth / vis).toFixed(4));
+            st.style.setProperty('--fy', (0.028 * st.clientHeight).toFixed(1) + 'px');
+        }
         function update() {
             var ref = window.innerHeight * (window.matchMedia('(max-width: 899px)').matches ? 0.62 : 0.5);
             var c = [];
@@ -165,7 +175,8 @@
             var gr = st.closest('.story-grid'); if (gr) gr.classList.add('big');
             st.insertBefore(cv, st.firstChild);
             window.addEventListener('scroll', onScroll, { passive: true });
-            window.addEventListener('resize', function () { drawn = ''; onScroll(); });
+            window.addEventListener('resize', function () { drawn = ''; fit(); onScroll(); });
+            fit(); if (frImg && !frImg.complete) frImg.addEventListener('load', fit);
             update(); cur = want; draw();
             // Erst ein grobes Geruest (jedes 16., dann 8. Bild), danach lueckenlos ab der aktuellen Position in Scrollrichtung nachladen (begrenzt parallel)
             [16, 8].forEach(function (stride, n) {

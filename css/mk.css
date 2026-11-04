@@ -422,11 +422,12 @@ details p { margin: .6rem 0 0; color: var(--muted); }
 /* Blender-Bildfolge: ersetzt die CSS-3D-Buehne, sobald die Frames geladen sind */
 .story-stage.has-render .board, .story-stage.has-render .gshadow { display: none; }
 .story-stage canvas.render { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
-/* Uebergang zur CSS-Endansicht: scrollgesteuert ueber --fin (0..1, setzt mk.js ueber die letzten Frames), kein Zeit-Fade, damit kein Schnitt entsteht */
-.story-stage.has-render { background: color-mix(in srgb, var(--paper) calc(var(--fin, 0) * 100%), #0e0e10); }
-.story-stage.has-render canvas.render { opacity: calc(1 - var(--fin, 0)); }
-.story-stage.has-render .l-frame { z-index: 3; opacity: var(--fin, 0); transform: translateY(calc((1 - var(--fin, 0)) * 14px)) scale(calc(.96 + .04 * var(--fin, 0))); transition: none; }
-.story-stage.has-render .paper-bg { opacity: var(--fin, 0); transition: none; }
+/* Uebergang zur CSS-Endansicht: scrollgesteuert ueber --fin (0..1, setzt mk.js ueber die letzten Frames), kein Zeit-Fade, damit kein Schnitt entsteht.
+   Zwei Phasen: --x (fin 0..0.6) ueberblendet Bildfolge und Endansicht bei gleicher Rahmengroesse und -lage (mk.js fit() richtet die Endansicht auf den gerenderten Rahmen aus), danach --g (fin 0.6..1) skaliert/verschiebt nur noch die Endansicht auf ihre Endgroesse. So gibt es nie zwei versetzte Rahmen. */
+.story-stage.has-render { --x: clamp(0, calc(var(--fin, 0) / .6), 1); --g: clamp(0, calc((var(--fin, 0) - .6) / .4), 1); background: color-mix(in srgb, var(--paper) calc(var(--x) * 100%), #0e0e10); }
+.story-stage.has-render canvas.render { opacity: calc(1 - var(--x)); background: #0e0e10; }
+.story-stage.has-render .l-frame { z-index: 3; opacity: var(--x); transform: translateY(calc((1 - var(--g)) * var(--fy, 12px))) scale(calc(var(--fs, .8) * (1 - var(--g)) + var(--g))); transition: none; }
+.story-stage.has-render .paper-bg { opacity: var(--x); transition: none; }
 @media (min-width: 900px) {
     .story-grid.big { grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 3rem; }
     .story-grid.big .story-stage { height: calc(100vh - 130px); max-height: 960px; }

@@ -58,7 +58,7 @@
         cv.className = 'render'; cv.setAttribute('aria-hidden', 'true');
         var ctx = cv.getContext('2d');
         var frames = new Array(total), ready = false, want = 0, cur = 0, drawn = '';
-        function name(i) { return base + 'f' + (i < 10 ? '00' : i < 100 ? '0' : '') + i + '.webp?v=20261104d'; }
+        function name(i) { return base + 'f' + (i < 10 ? '00' : i < 100 ? '0' : '') + i + '.webp?v=20261104f'; }
         function load(i, cb) {
             if (frames[i]) { cb && cb(); return; }
             var im = new Image(); frames[i] = im;
@@ -99,6 +99,7 @@
         function draw() {
             if (!ready) return;
             var c = Math.max(0, Math.min(total - 1, cur));
+            st.classList.toggle('fin', c >= total - 3);   // erst am Ende der Bildfolge auf die CSS-Endansicht ueberblenden
             var lo = lower(c), hi = upper(c);
             if (lo < 0 && hi < 0) return;
             if (lo < 0) lo = hi;
@@ -161,9 +162,25 @@
             window.addEventListener('scroll', onScroll, { passive: true });
             window.addEventListener('resize', function () { drawn = ''; onScroll(); });
             update(); cur = want; draw();
-            [16, 8, 4, 2, 1].forEach(function (stride, n) {
-                for (var i = 0; i < total; i += stride) { (function (k) { setTimeout(function () { load(k, function () { drawn = ''; draw(); }); }, 500 * n); })(i); }
+            // Erst ein grobes Geruest (jedes 16., dann 8. Bild), danach lueckenlos ab der aktuellen Position in Scrollrichtung nachladen (begrenzt parallel)
+            [16, 8].forEach(function (stride, n) {
+                for (var i = 0; i < total; i += stride) { (function (k) { setTimeout(function () { load(k, function () { drawn = ''; draw(); }); }, 400 * n); })(i); }
             });
+            var inflight = 0;
+            function pick() {
+                var c = Math.max(0, Math.min(total - 1, Math.round(cur))), i;
+                for (i = c; i < total; i++) if (!frames[i]) return i;
+                for (i = c - 1; i >= 0; i--) if (!frames[i]) return i;
+                return -1;
+            }
+            function pump() {
+                while (inflight < 8) {
+                    var i = pick(); if (i < 0) return;
+                    inflight++;
+                    load(i, function () { inflight--; drawn = ''; draw(); pump(); });
+                }
+            }
+            setTimeout(pump, 900);
         });
     })();
 

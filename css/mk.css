@@ -373,9 +373,9 @@ details p { margin: .6rem 0 0; color: var(--muted); }
 @media (max-width: 899px) { .step { min-height: 44vh; } }
 .steps.long .step { min-height: 130vh; }
 @media (max-width: 899px) { .steps.long .step { min-height: 70vh; } }
-.steps.long .step:nth-child(5) { min-height: 220vh; }
-.steps.long .step:nth-child(6) { min-height: 200vh; }
-@media (max-width: 899px) { .steps.long .step:nth-child(5) { min-height: 190vh; } .steps.long .step:nth-child(6) { min-height: 150vh; } }
+.steps.long .step:nth-child(5) { min-height: 250vh; }
+.steps.long .step:nth-child(6) { min-height: 230vh; }
+@media (max-width: 899px) { .steps.long .step:nth-child(5) { min-height: 220vh; } .steps.long .step:nth-child(6) { min-height: 180vh; } }
 .story-cta { margin-top: 3rem; padding: 2.4rem; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--border); text-align: center; box-shadow: var(--shadow); }
 .story-cta h2 { font-size: 1.6rem; margin-bottom: .6rem; }
 .story-cta .acts { display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap; margin-top: 1.2rem; }
@@ -422,12 +422,14 @@ details p { margin: .6rem 0 0; color: var(--muted); }
 /* Blender-Bildfolge: ersetzt die CSS-3D-Buehne, sobald die Frames geladen sind */
 .story-stage.has-render .board, .story-stage.has-render .gshadow { display: none; }
 .story-stage canvas.render { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; transition: opacity .5s ease; pointer-events: none; }
-.story-stage.has-render[data-step="6"] canvas.render { opacity: 0; }
+.story-stage.has-render.fin[data-step="6"] canvas.render { opacity: 0; }
 .story-stage.has-render .l-frame { z-index: 3; }
 .story-stage.has-render { background: #0e0e10; transition: background .5s ease; }
-.story-stage.has-render[data-step="6"] { background: var(--paper); }
+.story-stage.has-render.fin[data-step="6"] { background: var(--paper); }
 .story-stage.has-render .paper-bg { opacity: 0; transition: opacity .5s ease; }
-.story-stage.has-render[data-step="6"] .paper-bg { opacity: 1; }
+.story-stage.has-render.fin[data-step="6"] .paper-bg { opacity: 1; }
+/* Die Bildfolge spielt Uebergang und Rahmen selbst; die CSS-Endansicht blendet erst am letzten Frame ein */
+.story-stage.has-render:not(.fin) .l-frame { opacity: 0; transform: translateY(14px) scale(.96); }
 @media (min-width: 900px) {
     .story-grid.big { grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 3rem; }
     .story-grid.big .story-stage { height: calc(100vh - 130px); max-height: 960px; }

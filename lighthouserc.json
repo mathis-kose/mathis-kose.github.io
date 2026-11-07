@@ -1,0 +1,15 @@
+{
+  "ci": {
+    "collect": {
+      "staticDistDir": ".",
+      "url": [
+        "http://localhost/index.html",
+        "http://localhost/shop.html",
+        "http://localhost/tiger.html",
+        "http://localhost/orchideen.html"
+      ],
+      "numberOfRuns": 1
+    },
+    "upload": { "target": "filesystem", "outputDir": ".lighthouseci" }
+  }
+}

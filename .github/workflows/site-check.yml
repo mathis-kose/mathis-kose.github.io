@@ -13,15 +13,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: treosh/lighthouse-ci-action@v12
         with:
-          configPath: ''
-          staticDistDir: .
-          urls: |
-            /index.html
-            /shop.html
-            /tiger.html
-            /orchideen.html
+          configPath: ./lighthouserc.json
           uploadArtifacts: true
-          runs: 1
 
   html:
     runs-on: ubuntu-latest

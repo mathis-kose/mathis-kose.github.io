@@ -13,11 +13,11 @@
         chars: ' .:-=+*#%@',
         fontSize: 6, fontFamily: 'Arial, Helvetica, sans-serif', fontWeight: 400,
         lineHeight: 1, characterSpacing: 1,
-        brightnessBoost: 2.2, contrast: 1.1, threshold: 0.06, posterize: 32,
+        brightnessBoost: 2.2, contrast: 1.3, threshold: 0.06, posterize: 32,
         dither: 'floyd-steinberg', ditherStrength: 0.8,
-        flowSpeed: 0.22, flowDirection: 0, flowStrength: 12, flowFrequency: 0.018,
-        mouseRadius: 150, mouseStrength: 22, mouseWaveSpeed: 1.2,
-        scale: 1, fit: 'cover', invert: false
+        flowSpeed: 0.07, flowDirection: 255, flowStrength: 8, flowFrequency: 0.018,
+        mouseRadius: 285, mouseStrength: 6, mouseWaveSpeed: 1.2,
+        scale: 1, fit: 'cover', invert: false   // Mathis' Regler: scale 1.45 (gilt fuer sein Portraet; der Tiger wuerde angeschnitten, dort 1)
     };
 
     var root = document.documentElement;
@@ -40,10 +40,13 @@
     }
     function mix(a, b, t) { return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t]; }
     function themeVar(n) { return parseColor(getComputedStyle(root).getPropertyValue(n)); }
+    // Palette "Lime" (nxui: Lime-Cyan). Dunkel: wie nxui. Hell: dieselben Farbtoene abgedunkelt, sonst verschwinden sie auf Papier.
+    var LIME_DARK = ['#ecfccb', '#a3e635', '#22d3ee'], LIME_LIGHT = ['#9bb36a', '#4d8f12', '#0e7f95'];
+    function isDarkTheme() { var b = themeVar('--bg'); return (b[0] + b[1] + b[2]) / 3 < 128; }
     function palette(kind) {
-        var bg = themeVar('--bg'), tx = themeVar('--text'), rd = themeVar('--red');
-        if (kind === 'pattern') return [mix(bg, rd, 0.14), mix(bg, rd, 0.55)];
-        return [mix(bg, tx, 0.62), tx];
+        var bg = themeVar('--bg'), c = (isDarkTheme() ? LIME_DARK : LIME_LIGHT).map(parseColor);
+        if (kind === 'pattern') return [mix(bg, c[1], 0.12), mix(bg, c[2], 0.5)];
+        return c;
     }
     function gradient(stops, t) {
         var p = clamp(t) * (stops.length - 1), i = Math.min(Math.floor(p), stops.length - 2), f = p - i;
@@ -298,7 +301,7 @@
     var layers = [], tigerSource = null;
 
     if (bgCanvas && bgCanvas.getContext) {
-        var bgLayer = new Layer(bgCanvas, 'pattern', makePattern, { fit: 'cover' }, 33);
+        var bgLayer = new Layer(bgCanvas, 'pattern', makePattern, { fit: 'cover', scale: 1 }, 33);
         bgLayer.getHoles = function (base) {
             var hs = [];
             if (tigerLink) { var e = ellipseOf(tigerLink, base, 1); e.rx *= 0.98; e.ry *= 1.02; e.cy += e.ry * 0.04; hs.push(e); }
@@ -308,7 +311,7 @@
         layers.push(bgLayer);
     }
     if (tigerCanvas && tigerCanvas.getContext && tigerImg) {
-        var tl = new Layer(tigerCanvas, 'tiger', function () { return tigerSource; }, { fit: 'contain', fontSize: 4, fontWeight: 700, brightnessBoost: 3.2, contrast: 1.25 }, 16);
+        var tl = new Layer(tigerCanvas, 'tiger', function () { return tigerSource; }, { fit: 'contain', scale: 1, fontSize: 4, fontWeight: 700, brightnessBoost: 3.2 }, 16);
         tl.onFirst = function () { stage.classList.add('is-ascii'); };
         layers.push(tl);
     }

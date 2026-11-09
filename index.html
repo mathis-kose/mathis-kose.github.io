@@ -19,7 +19,7 @@
     <meta property="og:url" content="https://mathis-projects.com/">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="preload" href="fonts/poppins-latin-400.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="css/mk.css?v=20261104j">
+    <link rel="stylesheet" href="css/mk.css?v=20261109a">
     <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 </head>
@@ -32,86 +32,26 @@
         </div>
     </header>
 
-    <main id="main" class="wrap page">
-        <div class="intro">
-            <h1>MK-Projects</h1>
-            <p>Dinge, die ich selbst mache und teste.</p>
-        </div>
+    <main id="main" class="home">
 
-        <section class="bento" aria-label="Projekte und Bereiche">
-
-            <a class="tile t-big t-paper t-tiger" style="--i:0" href="tiger-story.html" aria-label="Tiger, Linolschnitt: die Entstehung ansehen">
-                <img src="img/svg/tiger.svg" width="730" height="725" alt="" decoding="async">
-                <svg class="hanko" viewBox="0 0 44 44" aria-hidden="true" focusable="false"><rect width="44" height="44" rx="8" fill="#d63a2b"/><path d="M10 13 L34 9 L34 15 L10 19Z M10 23 L34 19 L34 25 L10 29Z M10 33 L34 29 L34 35 L10 39Z" fill="#fff" opacity=".95"/></svg>
-                <span class="tile-label" aria-hidden="true">Tiger · Linolschnitt</span>
+        <section class="ascii-stage" aria-label="Projekte und Bereiche">
+            <canvas class="ascii-bg" aria-hidden="true"></canvas>
+            <div class="ascii-copy">
+                <h1>MK-Projects</h1>
+                <p>Dinge, die ich selbst mache und teste.</p>
+            </div>
+            <a class="ascii-tiger" href="tiger-story.html" aria-label="Tiger, Linolschnitt: die Entstehung ansehen">
+                <img class="ascii-fallback" src="img/svg/tiger.svg" width="730" height="725" alt="" decoding="async">
+                <canvas aria-hidden="true"></canvas>
             </a>
-
-            <a class="tile t-big t-ink t-orchid" style="--i:1" href="orchideen.html" aria-label="Orchideen-Bewässerungssystem: Produkt ansehen">
-                <div class="mv-host" data-static data-fov="21deg" data-model="3d/orchideen-system.glb?v=20261104a" data-alt="Orchideen-Bewässerungssystem als drehbares 3D-Modell"><img class="mv-poster" src="img/3d/orchideen-poster.webp?v=20261104a" width="560" height="1020" alt="" decoding="async"></div>
-                <span class="tile-label" aria-hidden="true">Orchideen-System</span>
-            </a>
-
-            <a class="tile t-wide t-red t-art" style="--i:2" href="shop.html#kunst" aria-label="Kunst im Shop ansehen">
-                <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false"><g class="waves"><path d="M-60 26 C0 4 60 48 120 26 S240 4 300 26 S420 48 480 26" fill="none" stroke="#121212" stroke-width="9" stroke-linecap="round"/><path d="M-60 52 C0 30 60 74 120 52 S240 30 300 52 S420 74 480 52" fill="none" stroke="#121212" stroke-width="14" stroke-linecap="round"/><path d="M-60 78 C0 56 60 100 120 78 S240 56 300 78 S420 100 480 78" fill="none" stroke="#121212" stroke-width="19" stroke-linecap="round"/><path d="M-60 104 C0 82 60 126 120 104 S240 82 300 104 S420 126 480 104" fill="none" stroke="#121212" stroke-width="9" stroke-linecap="round"/><path d="M-60 130 C0 108 60 152 120 130 S240 108 300 130 S420 152 480 130" fill="none" stroke="#121212" stroke-width="14" stroke-linecap="round"/><path d="M-60 156 C0 134 60 178 120 156 S240 134 300 156 S420 178 480 156" fill="none" stroke="#121212" stroke-width="19" stroke-linecap="round"/><path d="M-60 182 C0 160 60 204 120 182 S240 160 300 182 S420 204 480 182" fill="none" stroke="#121212" stroke-width="9" stroke-linecap="round"/></g></svg>
-                <span class="tile-label" aria-hidden="true">Kunst</span>
-            </a>
-
-            <a class="tile t-wide t-blue t-tech" style="--i:3" href="shop.html#technik" aria-label="Technik im Shop ansehen">
-                <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
-                    <g fill="none" stroke="#5aa7ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path class="trace" d="M0 46 H92 V100 H150"/>
-                        <path class="trace" d="M400 156 H300 V100 H250"/>
-                        <path class="trace" d="M0 160 H58 L90 130 H150"/>
-                        <path class="trace" d="M400 40 H322 L292 70 H250"/>
-                        <path class="trace" d="M200 70 V20 H236"/>
-                        <path class="trace" d="M200 130 V182 H164"/>
-                    </g>
-                    <rect x="150" y="70" width="100" height="60" rx="7" fill="#0f1d2f" stroke="#5aa7ee" stroke-width="2"/>
-                    <rect x="172" y="88" width="56" height="24" rx="3" fill="none" stroke="#5aa7ee" stroke-width="1.5" opacity=".7"/>
-                    <g fill="#5aa7ee">
-                        <circle class="node" cx="92" cy="46" r="4"/><circle class="node" cx="300" cy="156" r="4"/>
-                        <circle class="node" cx="90" cy="130" r="4"/><circle class="node" cx="292" cy="70" r="4"/>
-                        <circle class="node" cx="236" cy="20" r="4"/><circle class="node" cx="164" cy="182" r="4"/>
-                    </g>
-                </svg>
-                <span class="tile-label" aria-hidden="true">Technik</span>
-            </a>
-
-            <a class="tile t-paper t-process" style="--i:4" href="tiger-story.html#schritt-3" aria-label="Prozess: vom Linol zum Abzug">
-                <svg viewBox="0 0 120 120" aria-hidden="true" focusable="false">
-                    <rect x="14" y="26" width="92" height="70" rx="7" fill="#a3ad98" stroke="#141414" stroke-width="2.5"/>
-                    <path class="carve" d="M26 82 C44 40 66 92 94 46" fill="none" stroke="#f4f0e6" stroke-width="5" stroke-linecap="round"/>
-                    <g transform="translate(26 82)"><g class="tool">
-                        <rect x="-4" y="-18" width="12" height="30" rx="6" fill="#8a5a3b" stroke="#141414" stroke-width="2" transform="rotate(35)"/>
-                        <path d="M-2 10 L2 18 L6 10Z" fill="#4a4a4a" stroke="#141414" stroke-width="1.5" transform="rotate(35)"/>
-                    </g></g>
-                </svg>
-                <span class="tile-label" aria-hidden="true">Prozess</span>
-            </a>
-
-            <a class="tile t-ochre t-count" style="--i:5" href="shop.html" aria-label="Zwei Projekte im Shop">
-                <span class="dot" aria-hidden="true"></span>
-                <span class="num" aria-hidden="true">02</span>
-                <span class="tile-label" aria-hidden="true">Projekte</span>
-            </a>
-
-            <a class="tile t-paper t-about" style="--i:6" href="ueber-mich.html" aria-label="Über mich">
-                <svg viewBox="0 0 120 120" aria-hidden="true" focusable="false">
-                    <circle cx="56" cy="46" r="20" fill="none" stroke="#141414" stroke-width="3" stroke-dasharray="6 5"/>
-                    <path d="M20 108 C20 78 92 78 92 108" fill="none" stroke="#141414" stroke-width="3" stroke-dasharray="6 5" stroke-linecap="round"/>
-                    <g class="wave"><path d="M92 82 L104 58" stroke="#d63a2b" stroke-width="5" stroke-linecap="round"/><circle cx="106" cy="52" r="7" fill="#d63a2b"/></g>
-                </svg>
-                <span class="tile-label" aria-hidden="true">Über mich</span>
-            </a>
-
-            <a class="tile t-ink t-mail" style="--i:7" href="kontakt.html#newsletter" aria-label="Newsletter und Kontakt">
-                <svg viewBox="0 0 120 120" aria-hidden="true" focusable="false">
-                    <rect class="letter" x="32" y="36" width="56" height="40" rx="3" fill="#f4f0e6"/>
-                    <rect x="16" y="42" width="88" height="56" rx="6" fill="#d63a2b"/>
-                    <path class="flap" d="M16 42 H104 L60 76Z" fill="#ee5a4a"/>
-                </svg>
-                <span class="tile-label" aria-hidden="true">Newsletter</span>
-            </a>
+            <nav class="ascii-links" aria-label="Bereiche">
+                <ul>
+                    <li><a href="tiger-story.html">Tiger <span aria-hidden="true">&rarr;</span></a></li>
+                    <li><a href="orchideen.html">Orchideen-System <span aria-hidden="true">&rarr;</span></a></li>
+                    <li><a href="shop.html">Shop <span aria-hidden="true">&rarr;</span></a></li>
+                    <li><a href="kontakt.html#newsletter">Newsletter <span aria-hidden="true">&rarr;</span></a></li>
+                </ul>
+            </nav>
         </section>
     </main>
 
@@ -127,7 +67,8 @@
             </nav>
         </div>
     </footer>
-    <script src="mk.js?v=20261104j"></script>
+    <script src="mk.js?v=20261109a"></script>
+    <script src="ascii.js?v=20261109a" defer></script>
 </body>
 
 </html>

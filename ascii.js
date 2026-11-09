@@ -4,7 +4,8 @@
    Dithering, Wellenversatz und Zeiger-Ripple. Unterschiede zum Original: Das Helligkeitsfeld wird nur bei
    Groessenaenderung berechnet (nicht jedes Bild), die Zeichen kommen aus einem Glyphen-Atlas, die Farben
    folgen dem Theme (Hell/Dunkel), Pause ausserhalb des Sichtbereichs und bei "reduzierte Bewegung" ein
-   statisches Bild. Zwei Ebenen: Wellenmuster im Hintergrund, Tiger unten links. */
+   statisches Bild. Drei Ebenen: Wellenmuster im Hintergrund, Tiger links, Orchideen-System rechts (mit Farbklassen:
+   Struktur im Theme-Verlauf, Bluete rosa, Laub gruen, Wurzel bernstein). */
 (function () {
     'use strict';
 
@@ -47,6 +48,26 @@
         var bg = themeVar('--bg'), c = (isDarkTheme() ? LIME_DARK : LIME_LIGHT).map(parseColor);
         if (kind === 'pattern') return [mix(bg, c[1], 0.12), mix(bg, c[2], 0.5)];
         return c;
+    }
+    // Farbklassen fuer die Orchidee (nur Ebenen mit classes:true). Index 0 = Theme-Verlauf, danach Bluete, Laub, Wurzel.
+    var CLS_DARK = [['#c24b86', '#ee5a9b', '#ffd0e6'], ['#5da02f', '#8bd44a', '#d9f7b0'], ['#a8723a', '#d99a55', '#f6d5a1']];
+    var CLS_LIGHT = [['#d98ab0', '#c2417f', '#8a1f55'], ['#8fb86a', '#4d8f12', '#2b6a0a'], ['#c39a6b', '#9a6a35', '#6b4420']];
+    var CYAN_DARK = ['#17788a', '#22d3ee', '#b6f6fe'], CYAN_LIGHT = ['#3d9fb3', '#0e7f95', '#075264'];
+    function classStops(kind) {
+        var set = (isDarkTheme() ? CLS_DARK : CLS_LIGHT).map(function (s) { return s.map(parseColor); });
+        return [(isDarkTheme() ? CYAN_DARK : CYAN_LIGHT).map(parseColor)].concat(set);
+    }
+    // Pixel -> Farbklasse: wenig Saettigung = Struktur (0); sonst nach Farbton rosa (1), gruen (2), Holz/Bernstein (3)
+    function classify(r, g, b) {
+        var mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn;
+        if (mx < 28 || d / (mx || 1) < 0.2) return 0;
+        var h;
+        if (mx === r) h = ((g - b) / d + 6) % 6; else if (mx === g) h = (b - r) / d + 2; else h = (r - g) / d + 4;
+        h *= 60;
+        if (h >= 300 || h < 16) return 1;
+        if (h < 52) return 3;
+        if (h >= 62 && h < 170) return 2;
+        return 0;
     }
     function gradient(stops, t) {
         var p = clamp(t) * (stops.length - 1), i = Math.min(Math.floor(p), stops.length - 2), f = p - i;
@@ -123,6 +144,21 @@
         return b;
     }
 
+    // Orchidee: gerendertes Bild (transparent) auf schwarz, Helligkeit und Farbe bleiben erhalten
+    function makeOrchid(img) {
+        var w = img.naturalWidth || 718, h = img.naturalHeight || 1435;
+        var c = document.createElement('canvas'); c.width = w; c.height = h;
+        var x = c.getContext('2d');
+        x.fillStyle = '#000'; x.fillRect(0, 0, w, h);
+        // Lichtkegel vom Lampenkopf auf die Pflanze (hinter dem Bild): fuehrt den Blick vom Licht zur Blume
+        var g = x.createLinearGradient(0, h * 0.1, 0, h * 0.54);
+        g.addColorStop(0, 'rgba(255,255,255,.13)'); g.addColorStop(1, 'rgba(255,255,255,.015)');
+        x.fillStyle = g; x.beginPath();
+        x.moveTo(w * 0.30, h * 0.10); x.lineTo(w * 0.59, h * 0.10); x.lineTo(w * 0.80, h * 0.54); x.lineTo(w * 0.08, h * 0.54); x.closePath(); x.fill();
+        x.drawImage(img, 0, 0, w, h);
+        return c;
+    }
+
     // Aussparungen im Hintergrundmuster (Tiger, Ueberschrift): weich ausblenden, damit sie frei bleiben
     function holeFactor(holes, x, y) {
         var f = 1;
@@ -176,15 +212,21 @@
         var dw = o.fit === 'stretch' ? cols : (sw * sc) / cellW, dh = o.fit === 'stretch' ? rows : (sh * sc) / cellH;
         sx.drawImage(src, (cols - dw) / 2, (rows - dh) / 2, dw, dh);
         var px = sx.getImageData(0, 0, cols, rows).data;
-        var field = new Float32Array(cols * rows);
+        var field = new Float32Array(cols * rows), i;
         var steps = Math.max(2, Math.round(o.posterize)), contrast = Math.max(0, o.contrast), th = o.threshold;
-        for (var i = 0; i < field.length; i++) {
+        for (i = 0; i < field.length; i++) {
             var p = i * 4, al = px[p + 3] / 255;
             var lum = (px[p] * 0.2126 + px[p + 1] * 0.7152 + px[p + 2] * 0.0722) / 255;
             lum = clamp((lum - 0.5) * contrast + 0.5);
             lum = clamp(lum * o.brightnessBoost * al);
             field[i] = lum <= th ? 0 : (lum - th) / Math.max(0.001, 1 - th);
         }
+        if (o.classes) {
+            var cl = new Uint8Array(cols * rows);
+            for (i = 0; i < cl.length; i++) { var q = i * 4; if (px[q + 3] > 40) cl[i] = classify(px[q], px[q + 1], px[q + 2]); }
+            this.cls = cl;
+            if (o.classGain) for (i = 0; i < cl.length; i++) field[i] = clamp(field[i] * o.classGain[cl[i]]);
+        } else this.cls = null;
         if (o.dither === 'floyd-steinberg') ditherFS(field, cols, rows, steps, o.ditherStrength);
         else if (o.dither === 'bayer') ditherBayer(field, cols, rows, o.ditherStrength);
         else posterizeField(field, steps);
@@ -201,9 +243,9 @@
         if (!this.cellW) return;
         var o = this.o, L = this.levels, dpr = this.dpr, last = o.chars.length - 1;
         var sw = this.cwDev, sh = this.chDev;
-        var stops = palette(this.kind);
-        this.sw = sw; this.sh = sh; this.vis = new Uint8Array(L);
-        this.atlas.width = sw * L; this.atlas.height = sh;
+        var P = o.classes ? 4 : 1, sets = o.classes ? classStops(this.kind) : [palette(this.kind)];
+        this.sw = sw; this.sh = sh; this.vis = new Uint8Array(L); this.P = P;
+        this.atlas.width = sw * L * P; this.atlas.height = sh;
         var a = this.atlas.getContext('2d', { willReadFrequently: true });
         a.setTransform(dpr, 0, 0, dpr, 0, 0);
         a.font = o.fontWeight + ' ' + o.fontSize + 'px ' + o.fontFamily; a.textBaseline = 'top';
@@ -211,12 +253,14 @@
             var lum = k / (L - 1), ch = o.chars[Math.min(last, Math.floor(lum * last))];
             if (!ch || !ch.trim()) continue;
             this.vis[k] = 1;
-            a.fillStyle = gradient(stops, lum);
-            a.fillText(ch, (k * sw) / dpr, 0);
+            for (var c = 0; c < P; c++) {
+                a.fillStyle = gradient(sets[c], lum);
+                a.fillText(ch, ((c * L + k) * sw) / dpr, 0);
+            }
         }
         // Pixel des Atlas fuer das schnelle Kopieren in den Bildpuffer (ein Zeichen = ein Block aus Pixeln)
-        this.aw = sw * L;
-        this.spr32 = new Uint32Array(a.getImageData(0, 0, sw * L, sh).data.buffer);
+        this.aw = sw * L * P;
+        this.spr32 = new Uint32Array(a.getImageData(0, 0, sw * L * P, sh).data.buffer);
     };
     Layer.prototype.draw = function (now) {
         if (!this.ready) return;
@@ -227,7 +271,7 @@
         var rad = o.flowDirection * Math.PI / 180, dX = Math.cos(rad), dY = Math.sin(rad);
         var fq = o.flowFrequency, t = now * o.flowSpeed * Math.PI * 0.002;
         var usePtr = animated && ptr.on && o.mouseRadius > 0, holes = this.holes, R = o.mouseRadius;
-        var buf = this.buf32, spr = this.spr32, aw = this.aw, W = this.canvas.width, H = this.canvas.height;
+        var buf = this.buf32, spr = this.spr32, aw = this.aw, W = this.canvas.width, H = this.canvas.height, cls = this.cls, LV = this.levels;
         buf.fill(0);
         // Die Welle ist sin(Spalte + Zeile): per Additionstheorem je Spalte und Zeile einmal berechnen
         var cA = this.cA || (this.cA = new Float32Array(cols * 4)), rA = this.rA || (this.rA = new Float32Array(rows * 4));
@@ -276,7 +320,7 @@
                 if (o.invert) lum = 1 - lum;
                 var lvl = (lum * last + 0.5) | 0;
                 if (!vis[lvl]) continue;
-                var dx = (col - 1) * sw, so = lvl * sw;
+                var dx = (col - 1) * sw, so = ((cls ? cls[ir * cols + ic] * LV : 0) + lvl) * sw;
                 if (dx >= 0 && dx + sw <= W && dy0 >= 0 && dy0 + sh <= H) {
                     for (var yy = 0, di = dy0 * W + dx, si = so; yy < sh; yy++, di += W, si += aw) {
                         for (var xx = 0; xx < sw; xx++) buf[di + xx] = spr[si + xx];
@@ -298,13 +342,17 @@
     var tigerLink = stage.querySelector('.ascii-tiger');
     var tigerCanvas = tigerLink && tigerLink.querySelector('canvas');
     var tigerImg = tigerLink && tigerLink.querySelector('img');
-    var layers = [], tigerSource = null;
+    var orchLink = stage.querySelector('.ascii-orchid');
+    var orchCanvas = orchLink && orchLink.querySelector('canvas');
+    var orchImg = orchLink && orchLink.querySelector('img');
+    var layers = [], tigerSource = null, orchSource = null;
 
     if (bgCanvas && bgCanvas.getContext) {
         var bgLayer = new Layer(bgCanvas, 'pattern', makePattern, { fit: 'cover', scale: 1 }, 33);
         bgLayer.getHoles = function (base) {
             var hs = [];
             if (tigerLink) { var e = ellipseOf(tigerLink, base, 1); e.rx *= 0.98; e.ry *= 1.02; e.cy += e.ry * 0.04; hs.push(e); }
+            if (orchLink) { var eo = ellipseOf(orchLink, base, 1); eo.rx *= 0.95; eo.ry *= 1.0; hs.push(eo); }
             stage.querySelectorAll('.ascii-copy h1, .ascii-copy p').forEach(function (el) { hs.push(ellipseOf(el, base, 1.12)); });
             return hs;
         };
@@ -312,8 +360,14 @@
     }
     if (tigerCanvas && tigerCanvas.getContext && tigerImg) {
         var tl = new Layer(tigerCanvas, 'tiger', function () { return tigerSource; }, { fit: 'contain', scale: 1, fontSize: 4, fontWeight: 700, brightnessBoost: 3.2 }, 16);
-        tl.onFirst = function () { stage.classList.add('is-ascii'); };
+        tl.onFirst = function () { tigerLink.classList.add('is-ascii'); };
         layers.push(tl);
+    }
+    if (orchCanvas && orchCanvas.getContext && orchImg) {
+        var ol = new Layer(orchCanvas, 'orchid', function () { return orchSource; },
+            { fit: 'contain', scale: 1, fontSize: 4, fontWeight: 700, brightnessBoost: 1.7, contrast: 1.25, threshold: 0.05, classes: true, classGain: [0.95, 1.5, 1.2, 1.25], ditherStrength: 0.7 }, 16);
+        ol.onFirst = function () { orchLink.classList.add('is-ascii'); };
+        layers.push(ol);
     }
     if (!layers.length) return;
 
@@ -346,6 +400,16 @@
     if (tigerImg) {
         if (tigerImg.complete && tigerImg.naturalWidth > 0) loadTiger();
         else tigerImg.addEventListener('load', loadTiger, { once: true });
+    }
+
+    function loadOrchid() {
+        try { orchSource = makeOrchid(orchImg); } catch (e) { return; }
+        layers.forEach(function (l) { if (l.kind === 'orchid') l.build(); });
+        redrawStatic(); kick();
+    }
+    if (orchImg) {
+        if (orchImg.complete && orchImg.naturalWidth > 0) loadOrchid();
+        else orchImg.addEventListener('load', loadOrchid, { once: true });
     }
 
     buildAll();

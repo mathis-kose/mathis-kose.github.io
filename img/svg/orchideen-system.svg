@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img" aria-labelledby="t d">
 <title id="t">Orchideen-Bewässerungssystem</title>
-<desc id="d">Offenes, flaches Reservoir mit dunklem Wasser und Pumpe. An der hinteren Kante steht ein senkrechter Stab. Ein schwebendes, nahezu kugeliges Wurzelholz trägt eine Phalaenopsis-Orchidee, ihre dicken, silbrigen Velamen-Wurzeln umschlingen das Holz, die Enden hängen frei. Überschüssiges Wasser tropft zurück ins Reservoir. Der Stab ist hohl, ein Schlauch führt von der Pumpe nach oben und endet in einem kleinen Sprühkopf. Ein flaches, fast quadratisches LED-Modul sitzt an einem Arm am Stabende versetzt über der Pflanze, sein Lichtkegel hat den Umriss des Moduls.</desc>
+<desc id="d">Seitenansicht. Ein flacher, quadratischer Sockel mit großer Eckenrundung trägt oben ein Kiesbett und hat seitlich eine schmale Wasserstandsanzeige. Hinten steht ein schlankes, hellgraues Flachovalrohr, an dessen Kopf ein sanft geschwungener Lichtarm nach vorn ragt. Auf halber Höhe ist ein nach unten geneigtes Wurzelmodul angeschraubt. Es trägt ein Stück Wurzelholz mit Moos und einer Phalaenopsis-Orchidee. Vom Lichtkopf fällt ein Lichtkegel auf die Pflanze, eine Tropfstelle befeuchtet das Moos, das Wasser fällt von der Wurzelspitze durch den Kies zurück in den Sockel.</desc>
 <style>
 @supports (--a:0){.k{stroke:var(--ink,#1a1a1a)}
 .paper{fill:var(--paper,#fcfdff)}
@@ -31,83 +31,74 @@
 <g class="k" stroke="#1a1a1a" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
 
 <g id="reservoir">
-<path d="M50,410 H300 L344,374 H94 Z" fill="#fcfdff" class="paper"/>
-<path d="M300,410 L344,374 V440 Q344,446 338,451 L300,482 Z" class="inkf" fill="#1a1a1a" fill-opacity=".18"/>
-<rect x="50" y="410" width="250" height="72" rx="9" fill="#fcfdff" class="paper" fill-opacity=".9"/>
-<path d="M64,405 H290 L326,380 H100 Z" fill="none" stroke-width="1.2"/>
+<rect x="104" y="414" width="192" height="66" rx="20" fill="#fcfdff" class="paper"/>
+<path d="M112,414 H288" fill="none" stroke-width="1.4"/>
+<g stroke-width="1.2" fill="#e6e1d6"><circle cx="124" cy="409" r="5.2"/><circle cx="136" cy="410" r="5"/><circle cx="148" cy="408" r="5.4"/><circle cx="160" cy="410" r="5"/><circle cx="173" cy="409" r="5.4"/><circle cx="186" cy="410" r="5"/><circle cx="199" cy="408" r="5.4"/><circle cx="212" cy="410" r="5"/><circle cx="225" cy="409" r="5.2"/><circle cx="238" cy="410" r="5"/><circle cx="251" cy="408" r="5.4"/><circle cx="286" cy="410" r="4.6"/><circle cx="116" cy="410" r="4.4"/></g>
+<rect x="290" y="452" width="8" height="8" rx="2" fill="#a83a2e" stroke-width="1.4"/>
 </g>
 
 <g id="wasser">
-<path d="M64,405 H290 L326,380 H100 Z" fill="#23627f" fill-opacity=".78" stroke-width="1.4"/>
-<path d="M50,442 H300 V473 Q300,482 291,482 H59 Q50,482 50,473 Z" fill="#1c5570"/>
-<path d="M56,450 Q76,446 96,450 T136,450 T176,450 T216,450 T256,450 T294,450" fill="none" stroke="#9fc4d6" stroke-width="1.2" opacity=".55"/>
-<path d="M62,462 H110 M150,466 H230 M246,458 H282" fill="none" stroke="#9fc4d6" stroke-width="1.2" opacity=".3"/>
-<path d="M300,442 L344,406 V440 Q344,446 338,451 L300,482 Z" fill="#1c5570" fill-opacity=".8" stroke-width="1.2"/>
+<rect x="122" y="430" width="7" height="40" rx="3.5" fill="#fcfdff" class="paper" stroke-width="1.4"/>
+<rect x="123.5" y="446" width="4" height="22" rx="2" fill="#388ad1" stroke="none"/>
 </g>
 
 <g id="schlauch">
-<path d="M215,386 V250" fill="none" stroke="#23627f" stroke-width="2.2" opacity=".9"/>
-<path d="M215,250 L205,258" fill="none" stroke-width="5"/>
-<path d="M215,250 L205,258" fill="none" stroke="#8c949c" stroke-width="2.6"/>
-<circle cx="215" cy="386" r="3" fill="#23627f" stroke-width="1.4"/>
+<path d="M272,410 V176" fill="none" stroke="#23627f" stroke-width="2.2" opacity=".85"/>
+<path d="M272,176 C272,120 272,96 256,64 C250,52 238,47 226,47" fill="none" stroke="#23627f" stroke-width="2" opacity=".0"/>
+<circle cx="272" cy="410" r="3" fill="#23627f" stroke-width="1.4"/>
 </g>
 
 <g id="stab">
-<rect x="204" y="368" width="22" height="9" rx="2" fill="#8c949c"/>
-<rect x="212.5" y="49" width="5" height="322" fill="#8c949c"/>
-<path d="M214.3,54 V366" stroke="#fcfdff" stroke-width="1.2" fill="none" opacity=".8"/>
+<rect x="259" y="402" width="26" height="14" rx="3" fill="#cfd2d4"/>
+<rect x="261" y="150" width="22" height="256" rx="4" fill="#cfd2d4"/>
+<path d="M266,158 V398" stroke="#fcfdff" stroke-width="2" fill="none" opacity=".7"/>
+<rect x="259" y="146" width="26" height="12" rx="3" fill="#cfd2d4"/>
 </g>
 
 <g id="holz">
-<path d="M144,276 C144,252 168,242 196,242 C226,242 250,252 250,276 C250,298 226,308 196,308 C168,308 144,298 144,276Z" fill="#5a3a24"/>
-<path d="M146,280 C136,284 128,290 122,298 M250,278 C260,282 266,288 272,296 M192,306 C192,312 190,316 186,320" fill="none" stroke="#5a3a24" stroke-width="8"/>
-<path d="M156,266 C172,256 200,254 232,258 M158,286 C180,296 214,298 240,288" fill="none" stroke="#3a2415" stroke-width="1.2" opacity=".7"/>
-<path d="M214,300 H228 V312 Q228,316 224,316 H214 Z" fill="#8c949c"/>
-<rect x="216" y="302" width="8" height="2" rx="1" fill="#fcfdff" stroke="none" opacity=".7"/>
+<path d="M268,196 L228,205 C216,207 204,212 192,222 C176,232 156,240 138,248 C128,252 124,258 128,263 C134,268 146,264 160,262 C184,258 208,252 228,243 L262,236 Z" fill="#6b4a33"/>
+<path d="M150,252 C170,246 196,238 220,228 M168,256 C188,252 208,246 226,238" fill="none" stroke="#3a2415" stroke-width="1.2" opacity=".7"/>
+<path d="M266,192 L228,198 L222,232 L264,238 Z" fill="#cfd2d4"/>
+<path d="M232,201 L232,234" stroke="#fcfdff" stroke-width="1.6" fill="none" opacity=".7"/>
+<circle cx="258" cy="215" r="2" fill="#565d64" stroke-width="1"/>
 </g>
 
 <g id="lichtkegel" stroke="none">
-<polygon class="cone" opacity=".25" points="226,62 300,62 369,268 155,268" fill="url(#lg)"/>
-<path class="cone" d="M155,268 H369 L383,250 H169 Z" fill="#f5c542" opacity=".22"/>
+<polygon class="cone" opacity=".25" points="140,50 206,50 258,236 96,236" fill="url(#lg)"/>
+<path class="cone" d="M96,236 H258 L266,226 H104 Z" fill="#f5c542" opacity=".22"/>
 </g>
 
 <g id="orchidee">
-<g id="wurzeln">
-<g fill="none"><path d="M178,246 C160,250 146,262 142,278 C140,290 144,302 150,312" stroke-width="6.6"/><path d="M196,244 C182,256 174,274 176,294 C177,304 180,314 184,324" stroke-width="6.6"/><path d="M206,246 C220,256 226,276 224,296 C223,306 220,316 222,326" stroke-width="6.6"/><path d="M216,248 C236,252 250,264 252,282 C253,294 250,304 246,314" stroke-width="6.6"/><path d="M170,252 C186,262 214,264 236,254" stroke-width="6.6"/><path d="M152,270 C176,282 214,284 244,272" stroke-width="6.6"/><path d="M160,292 C184,302 210,302 238,294" stroke-width="6.6"/><path d="M188,250 C176,266 164,284 156,300 C154,306 154,312 156,318" stroke-width="6.6"/><path d="M200,252 C208,270 212,290 210,306 C210,314 214,320 218,322" stroke-width="6.6"/></g>
-<g fill="none"><path d="M178,246 C160,250 146,262 142,278 C140,290 144,302 150,312" stroke="#d3dac4" stroke-width="3.6"/><path d="M196,244 C182,256 174,274 176,294 C177,304 180,314 184,324" stroke="#d3dac4" stroke-width="3.6"/><path d="M206,246 C220,256 226,276 224,296 C223,306 220,316 222,326" stroke="#d3dac4" stroke-width="3.6"/><path d="M216,248 C236,252 250,264 252,282 C253,294 250,304 246,314" stroke="#d3dac4" stroke-width="3.6"/><path d="M170,252 C186,262 214,264 236,254" stroke="#d3dac4" stroke-width="3.6"/><path d="M152,270 C176,282 214,284 244,272" stroke="#d3dac4" stroke-width="3.6"/><path d="M160,292 C184,302 210,302 238,294" stroke="#d3dac4" stroke-width="3.6"/><path d="M188,250 C176,266 164,284 156,300 C154,306 154,312 156,318" stroke="#d3dac4" stroke-width="3.6"/><path d="M200,252 C208,270 212,290 210,306 C210,314 214,320 218,322" stroke="#d3dac4" stroke-width="3.6"/></g>
-<circle cx="150" cy="312" r="3.4" fill="#5f9a3c" stroke-width="1.2"/><circle cx="184" cy="324" r="3.4" fill="#5f9a3c" stroke-width="1.2"/><circle cx="222" cy="326" r="3.4" fill="#5f9a3c" stroke-width="1.2"/><circle cx="246" cy="314" r="3.4" fill="#5f9a3c" stroke-width="1.2"/><circle cx="156" cy="318" r="3.4" fill="#5f9a3c" stroke-width="1.2"/><circle cx="218" cy="322" r="3.4" fill="#5f9a3c" stroke-width="1.2"/>
+<g id="moos" stroke-width="1">
+<path d="M158,248 C156,232 170,224 186,226 C200,222 214,226 222,232 C230,238 226,246 216,248 C200,252 176,254 158,248Z" fill="#3d6a2c"/>
+<circle cx="170" cy="234" r="5" fill="#4d7c36"/><circle cx="184" cy="228" r="5.4" fill="#456f2f"/><circle cx="198" cy="229" r="5" fill="#557f3b"/><circle cx="212" cy="233" r="4.8" fill="#4d7c36"/><circle cx="226" cy="238" r="4" fill="#456f2f"/><circle cx="164" cy="244" r="4" fill="#557f3b"/>
 </g>
 <g id="blaetter">
-<path d="M190,247 C214,214 258,206 286,224 C274,250 230,260 190,251 Z" fill="#3d6040"/>
-<path d="M190,247 C166,214 120,208 96,228 C106,252 150,260 190,251 Z" fill="#3d6040"/>
-<path d="M190,248 C188,224 196,206 214,196 C220,218 210,238 200,248 Z" fill="#557a4e"/>
-<path d="M188,252 C204,230 244,228 272,246 C250,266 214,266 188,252 Z" fill="#557a4e"/>
-<path d="M188,248 C170,234 136,232 108,240 C128,262 164,264 188,254 Z" fill="#557a4e"/>
-<g fill="none" stroke-width="1.2">
-<path d="M190,248 C225,232 255,226 280,223 M190,248 C150,232 125,228 102,226 M192,247 C198,228 205,212 213,199 M190,253 C215,243 240,243 264,246 M188,251 C160,244 135,243 116,241"/>
+<path d="M186,228 C206,206 238,204 252,214 C240,232 212,236 186,230 Z" fill="#3d6040"/>
+<path d="M186,228 C166,206 136,202 120,214 C132,232 160,236 186,230 Z" fill="#3d6040"/>
+<path d="M186,228 C184,210 190,194 204,186 C208,204 202,220 194,230 Z" fill="#557a4e"/>
+<g fill="none" stroke-width="1.1"><path d="M188,228 C208,218 228,212 248,213 M184,228 C160,218 140,213 124,214 M190,226 C194,214 198,200 203,190"/></g>
 </g>
-</g>
-<path id="bluetenstiel" d="M193,244 C202,200 212,152 192,122 C172,92 118,90 88,134" fill="none" stroke-width="3.4"/>
-<path d="M88,134 C86,142 85,150 84,160" fill="none" stroke-width="2.4"/>
-<g id="bluete1"><use href="#fl" transform="translate(212 186) scale(.8) rotate(8)"/></g>
-<g id="bluete2"><use href="#fl" transform="translate(198 142) scale(.86) rotate(0)"/></g>
-<g id="bluete3"><use href="#fl" transform="translate(160 110) scale(.86) rotate(-12)"/></g>
-<g id="bluete4"><use href="#fl" transform="translate(122 118) scale(.8) rotate(-20)"/></g>
-<g id="bluete5"><use href="#fl" transform="translate(90 154) scale(.6) rotate(-30)"/></g>
+<path id="bluetenstiel" d="M188,226 C196,194 198,160 176,138 C164,126 152,124 142,130" fill="none" stroke-width="3"/>
+<g id="bluete1"><use href="#fl" transform="translate(196 178) scale(.62) rotate(10)"/></g>
+<g id="bluete2"><use href="#fl" transform="translate(190 148) scale(.68) rotate(0)"/></g>
+<g id="bluete3"><use href="#fl" transform="translate(164 128) scale(.68) rotate(-14)"/></g>
+<g id="bluete4"><use href="#fl" transform="translate(138 134) scale(.6) rotate(-24)"/></g>
+<g id="bluete5"><use href="#fl" transform="translate(126 156) scale(.46) rotate(-34)"/></g>
 </g>
 
 <g id="led">
-<path d="M215,52 C215,38 226,34 244,36" fill="none" stroke-width="6.4"/>
-<path d="M215,52 C215,38 226,34 244,36" fill="none" stroke="#8c949c" stroke-width="3"/>
-<path d="M226,48 L302,48 L320,38 L244,38 Z" fill="#8c949c" stroke-width="1.8"/>
-<rect x="226" y="48" width="76" height="13" rx="3" fill="#565d64" stroke-width="1.8"/>
-<rect x="234" y="61" width="60" height="3.5" rx="1.7" fill="#f5c542" stroke-width="1.4"/>
+<path d="M272,150 V86 C272,56 256,38 228,38 H196" fill="none" stroke-width="15"/>
+<path d="M272,150 V86 C272,56 256,38 228,38 H196" fill="none" stroke="#cfd2d4" stroke-width="11"/>
+<rect x="128" y="30" width="84" height="16" rx="8" fill="#cfd2d4" stroke-width="2"/>
+<rect x="138" y="46" width="64" height="3.5" rx="1.7" fill="#f5c542" stroke-width="1.4"/>
+<rect x="182" y="50" width="3" height="5" rx="1" fill="#565d64" stroke-width="1"/>
 </g>
 
 <g id="tropfen">
-<g transform="translate(186 252) scale(.7)"><path class="drop" opacity="0" d="M0,-5 C3,-1 4,1 4,3 A4,4 0 1 1 -4,3 C-4,1 -3,-1 0,-5Z" fill="#388ad1" stroke-width="1.4"/></g>
-<g transform="translate(180 252) scale(.7)"><path class="drop2" opacity="0" d="M0,-5 C3,-1 4,1 4,3 A4,4 0 1 1 -4,3 C-4,1 -3,-1 0,-5Z" fill="#388ad1" stroke-width="1.4"/></g>
-<g transform="translate(192 252) scale(.7)"><path class="drop3" opacity="0" d="M0,-5 C3,-1 4,1 4,3 A4,4 0 1 1 -4,3 C-4,1 -3,-1 0,-5Z" fill="#388ad1" stroke-width="1.4"/></g>
+<g transform="translate(183.5 232) scale(.7)"><path class="drop" opacity="0" d="M0,-5 C3,-1 4,1 4,3 A4,4 0 1 1 -4,3 C-4,1 -3,-1 0,-5Z" fill="#388ad1" stroke-width="1.4"/></g>
+<g transform="translate(183.5 226) scale(.7)"><path class="drop2" opacity="0" d="M0,-5 C3,-1 4,1 4,3 A4,4 0 1 1 -4,3 C-4,1 -3,-1 0,-5Z" fill="#388ad1" stroke-width="1.4"/></g>
+<g transform="translate(130 330) scale(.7)"><path class="drop3" opacity="0" d="M0,-5 C3,-1 4,1 4,3 A4,4 0 1 1 -4,3 C-4,1 -3,-1 0,-5Z" fill="#388ad1" stroke-width="1.4"/></g>
 </g>
 
 </g>

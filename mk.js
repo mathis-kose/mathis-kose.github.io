@@ -221,10 +221,13 @@
             var interactive = !host.hasAttribute('data-static');
             var go = function () {
                 load3d().then(function () {
+                    // Meshopt-Decoder lokal ausliefern (Standard waere ein CDN, wir wollen keine fremden Anfragen)
+                    var MV = window.customElements && customElements.get('model-viewer');
+                    if (MV && MV.meshoptDecoderLocation !== '3d/meshopt_decoder.js') MV.meshoptDecoderLocation = '3d/meshopt_decoder.js';
                     var mv = document.createElement('model-viewer');
                     var a = {
                         'src': host.getAttribute('data-model'), 'alt': host.getAttribute('data-alt') || '3D-Modell',
-                        'shadow-intensity': '1', 'shadow-softness': '0.9', 'exposure': '1.1', 'environment-image': 'neutral',
+                        'shadow-intensity': '1', 'shadow-softness': '0.9', 'exposure': host.getAttribute('data-exposure') || '1.1', 'environment-image': 'neutral',
                         'camera-orbit': '28deg 80deg auto', 'field-of-view': host.getAttribute('data-fov') || '26deg', 'interaction-prompt': 'none',
                         'min-camera-orbit': 'auto 45deg auto', 'max-camera-orbit': 'auto 100deg auto', 'disable-zoom': '',
                         'touch-action': 'pan-y'

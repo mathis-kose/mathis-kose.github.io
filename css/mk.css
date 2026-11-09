@@ -262,6 +262,7 @@ p { margin: 0 0 1em; }
 .pp-media .stage img, .pp-media .stage svg { max-height: 100%; max-width: 100%; width: auto; height: 100%; object-fit: contain; display: block; }
 .pp-media .stage.dark { background: radial-gradient(120% 90% at 50% 8%, #26282e 0%, #121316 62%); color: #ececee; }
 .pp-media .stage.dark svg { height: 94%; }
+.pp-media .stage img.shot { width: 100%; height: 100%; max-width: none; max-height: none; object-fit: cover; }
 .thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 10px 0 0; padding: 0; list-style: none; }
 .thumbs button {
     width: 100%; aspect-ratio: 1; border-radius: 14px; border: 2px solid transparent; padding: 0; overflow: hidden; cursor: pointer;
@@ -544,30 +545,48 @@ details p { margin: .6rem 0 0; color: var(--muted); }
 .ascii-copy > * { width: fit-content; max-width: 100%; }
 .ascii-copy h1 { font-size: clamp(2rem, 5.4vw, 3.4rem); font-weight: 600; letter-spacing: -.02em; }
 .ascii-copy p { margin: .2rem 0 0; color: var(--muted); font-size: 1.02rem; }
-.ascii-tiger {
-    position: absolute; left: max(1vw, 8px); bottom: 0; z-index: 2; display: block;
-    width: min(48vw, 74vh, 700px); width: min(48vw, 74svh, 700px); aspect-ratio: 730 / 725;
-    border-radius: 12px; -webkit-tap-highlight-color: transparent;
+/* Komposition: drei Spalten nach Drittelregel. Links Tiger (kompakt), Mitte die Links als ruhiger Sockel,
+   rechts das hohe, schlanke Orchideen-System. Beide Objekte stehen auf derselben Grundlinie (Unterkante der Buehne).
+   Der Tiger ist massiger, die Orchidee dafuer ca. 1,3x so hoch: aehnliche visuelle Masse, klar unterschiedliche Rolle. */
+.ascii-stage { --tw: min(38vw, 66vh, 600px); --oh: min(calc(100vh - 58px - 2.5rem), 78vw, 860px); }
+@supports (height: 100svh) { .ascii-stage { --tw: min(38vw, 66svh, 600px); --oh: min(calc(100svh - 58px - 2.5rem), 78vw, 860px); } }
+.ascii-obj {
+    position: absolute; bottom: 0; z-index: 2; display: block; border-radius: 12px; -webkit-tap-highlight-color: transparent;
+    transition: opacity .35s cubic-bezier(.2, .7, .2, 1);
 }
-.ascii-tiger:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
-.ascii-tiger canvas, .ascii-tiger img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.ascii-tiger img { object-fit: contain; transition: opacity .6s ease; }
-.ascii-tiger canvas { opacity: 0; transition: opacity .6s ease; }
-.ascii-tiger canvas.on { opacity: 1; }
-.ascii-stage.is-ascii .ascii-tiger img { opacity: 0; }
-.ascii-links { position: absolute; right: 4vw; bottom: 1.8rem; z-index: 3; }
-.ascii-links ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: flex-end; gap: .15rem; }
+.ascii-obj:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.ascii-tiger { left: max(2vw, 8px); width: var(--tw); aspect-ratio: 730 / 725; }
+.ascii-orchid { right: 5vw; height: var(--oh); aspect-ratio: 720 / 1161; }
+.ascii-obj canvas, .ascii-obj img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.ascii-obj img { object-fit: contain; transition: opacity .6s ease; }
+.ascii-obj canvas { opacity: 0; transition: opacity .6s ease; }
+.ascii-obj canvas.on { opacity: 1; }
+.ascii-obj.is-ascii img { opacity: 0; }
+/* Fallback-Bild des Tigers (dunkle Tusche) im Dunkelmodus aufhellen, solange das ASCII-Bild fehlt */
+:root[data-theme="dark"] .ascii-tiger img { filter: invert(.9); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .ascii-tiger img { filter: invert(.9); } }
+@media (hover: hover) {
+    .ascii-stage:has(.ascii-tiger:hover, .ascii-tiger:focus-visible, .ascii-links a[href^="tiger"]:hover, .ascii-links a[href^="tiger"]:focus-visible) .ascii-orchid,
+    .ascii-stage:has(.ascii-orchid:hover, .ascii-orchid:focus-visible, .ascii-links a[href^="orchideen"]:hover, .ascii-links a[href^="orchideen"]:focus-visible) .ascii-tiger { opacity: .45; }
+}
+.ascii-links { position: absolute; left: 0; right: 0; bottom: 1.8rem; z-index: 3; display: flex; justify-content: center; pointer-events: none; }
+.ascii-links ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: flex-start; gap: .15rem; pointer-events: auto; }
 .ascii-links a {
     display: inline-block; padding: .35rem .95rem; border-radius: 100vw; text-decoration: none;
-    font-size: clamp(1.05rem, 2.2vw, 1.5rem); font-weight: 400; letter-spacing: -.01em; color: var(--text);
+    font-size: clamp(1.05rem, 1.9vw, 1.5rem); font-weight: 400; letter-spacing: -.01em; color: var(--text);
     background: color-mix(in srgb, var(--bg) 78%, transparent); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
     transition: background .2s ease, color .2s ease, transform .25s cubic-bezier(.2, .7, .2, 1);
 }
-.ascii-links a:hover, .ascii-links a:focus-visible { background: var(--text); color: var(--bg); transform: translateX(-4px); }
+.ascii-links a:hover, .ascii-links a:focus-visible { background: var(--text); color: var(--bg); transform: translateX(4px); }
 .ascii-links a:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
-@media (max-width: 760px) {
-    .ascii-tiger { width: min(86vw, 52vh, 460px); width: min(86vw, 52svh, 460px); left: 0; }
-    .ascii-links { right: 4vw; bottom: auto; top: 8.6rem; }
+/* Schmal (Handy, Hochformat): Links oben unter der Ueberschrift, beide Objekte nebeneinander auf einer Grundlinie, Orchidee hoeher */
+@media (max-width: 900px) {
+    .ascii-stage { --tw: min(52vw, 38vh, 420px); --oh: min(78vw, 54vh, 560px); }
+    @supports (height: 100svh) { .ascii-stage { --tw: min(52vw, 38svh, 420px); --oh: min(78vw, 54svh, 560px); } }
+    .ascii-tiger { left: 0; }
+    .ascii-orchid { right: 0; }
+    .ascii-links { left: auto; right: 4vw; bottom: auto; top: 8.6rem; display: block; }
     .ascii-links ul { align-items: flex-end; }
+    .ascii-links a:hover, .ascii-links a:focus-visible { transform: translateX(-4px); }
 }
-@media (prefers-reduced-motion: reduce) { .ascii-links a { transition: none; } .ascii-links a:hover, .ascii-links a:focus-visible { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .ascii-obj { transition: none; } .ascii-links a { transition: none; } .ascii-links a:hover, .ascii-links a:focus-visible { transform: none; } }

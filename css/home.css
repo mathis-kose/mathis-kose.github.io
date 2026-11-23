@@ -1,13 +1,60 @@
-/* Startseite v2: Zeichen mit Glitzer-Schweif und weiches Bubble-Bento-Raster. Nur index.html laedt diese Datei. */
+/* Startseite v3: Zeichen mit Glitzer-Schweif, Bento-Raster aus Glas-Kacheln (Squircle), langsame Drift, Vergroesserung mit Live-Vorschau.
+   Nur index.html laedt diese Datei. Ausgelegt auf Hell und Dunkel. */
 
-.home2 { display: block; padding-bottom: 4.5rem; }
+:root {
+    --g-fill-a: rgba(255, 255, 255, .62);
+    --g-fill-b: rgba(255, 255, 255, .16);
+    --g-edge: rgba(255, 255, 255, .95);
+    --g-edge-dim: rgba(255, 255, 255, .55);
+    --g-shadow: 0 30px 70px rgba(70, 50, 30, .20), 0 3px 8px rgba(70, 50, 30, .10);
+    --g-face-line: rgba(0, 0, 0, .07);
+    --g-cap: rgba(255, 255, 255, .72);
+    --aur-1: rgba(240, 185, 58, .30);
+    --aur-2: rgba(214, 58, 43, .16);
+    --aur-3: rgba(47, 111, 181, .20);
+}
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --g-fill-a: rgba(255, 255, 255, .15);
+        --g-fill-b: rgba(255, 255, 255, .03);
+        --g-edge: rgba(255, 255, 255, .55);
+        --g-edge-dim: rgba(255, 255, 255, .20);
+        --g-shadow: 0 34px 80px rgba(0, 0, 0, .70), 0 3px 10px rgba(0, 0, 0, .50);
+        --g-face-line: rgba(255, 255, 255, .06);
+        --g-cap: rgba(28, 28, 32, .70);
+        --aur-1: rgba(240, 150, 58, .20);
+        --aur-2: rgba(214, 58, 43, .16);
+        --aur-3: rgba(47, 111, 181, .24);
+    }
+}
+:root[data-theme="dark"] {
+    --g-fill-a: rgba(255, 255, 255, .15);
+    --g-fill-b: rgba(255, 255, 255, .03);
+    --g-edge: rgba(255, 255, 255, .55);
+    --g-edge-dim: rgba(255, 255, 255, .20);
+    --g-shadow: 0 34px 80px rgba(0, 0, 0, .70), 0 3px 10px rgba(0, 0, 0, .50);
+    --g-face-line: rgba(255, 255, 255, .06);
+    --g-cap: rgba(28, 28, 32, .70);
+    --aur-1: rgba(240, 150, 58, .20);
+    --aur-2: rgba(214, 58, 43, .16);
+    --aur-3: rgba(47, 111, 181, .24);
+}
+
+.home3 { position: relative; isolation: isolate; display: block; padding-bottom: 4.5rem; overflow-x: clip; }
+
+/* Licht hinter dem Glas: weiche Farbflaechen, die langsam wandern */
+.aurora { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+.aurora::before, .aurora::after { content: ""; position: absolute; border-radius: 50%; filter: blur(70px); }
+.aurora::before { width: 56vw; height: 56vw; left: -12vw; top: 14vh; background: radial-gradient(circle, var(--aur-1), transparent 68%), radial-gradient(circle at 70% 60%, var(--aur-2), transparent 60%); animation: aur-a 44s ease-in-out infinite alternate; }
+.aurora::after { width: 52vw; height: 52vw; right: -14vw; top: 30vh; background: radial-gradient(circle, var(--aur-3), transparent 66%); animation: aur-b 52s ease-in-out infinite alternate; }
+@keyframes aur-a { to { transform: translate(8vw, 6vh) scale(1.12); } }
+@keyframes aur-b { to { transform: translate(-7vw, -5vh) scale(1.08); } }
 
 /* ---------- Zeichen ---------- */
-.mark { max-width: 1240px; margin: 0 auto; padding: clamp(1.6rem, 5vw, 3rem) 4vw clamp(1.2rem, 3vw, 2rem); text-align: center; }
-.mark-glyph { display: block; margin: 0 auto; height: clamp(84px, 13vw, 128px); width: auto; overflow: visible; }
+.mark { position: relative; max-width: 1240px; margin: 0 auto; padding: clamp(1.6rem, 5vw, 3rem) 4vw clamp(1.2rem, 3vw, 2rem); text-align: center; }
+.mark-glyph { display: block; margin: 0 auto; height: clamp(96px, 14vw, 150px); width: auto; overflow: visible; }
 .mark h1 { margin: .5rem 0 0; font-size: .95rem; font-weight: 400; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
 
-/* Schweif: ein heller Streifen läuft alle 7 s durch die Schrift, danach funkeln drei Sterne auf. */
 .mark-sweep { transform: translateX(-260px) skewX(-18deg); animation: mark-sweep 7s cubic-bezier(.5, 0, .3, 1) infinite; }
 @keyframes mark-sweep {
     0%, 62% { transform: translateX(-260px) skewX(-18deg); }
@@ -23,65 +70,110 @@
     78%, 100% { transform: scale(0) rotate(90deg); opacity: 0; }
 }
 
-/* ---------- Raster ---------- */
-.tiles { list-style: none; margin: 0 auto; padding: 0 4vw; max-width: 1240px; display: flex; flex-wrap: wrap; gap: clamp(12px, 2vw, 22px); }
-.tiles > li { flex: 1 1 300px; min-width: 0; transition: flex-grow .5s cubic-bezier(.2, .8, .2, 1); }
-
-.tile {
-    position: relative; display: block; height: clamp(300px, 46vw, 580px);
-    border-radius: clamp(28px, 4.4vw, 60px); overflow: hidden; isolation: isolate;
-    background: var(--surface); border: 1px solid var(--border);
-    box-shadow: var(--shadow), inset 0 2px 0 rgba(255, 255, 255, .55);
-    transition: transform .5s cubic-bezier(.2, .8, .2, 1), box-shadow .5s ease;
+/* ---------- Raster: grobe Ordnung, leicht versetzt ---------- */
+.grid {
+    position: relative; list-style: none; margin: 0 auto; padding: 0 4vw;
+    max-width: 1240px; display: grid; justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 410px));
+    gap: clamp(26px, 4vw, 52px) clamp(20px, 3.4vw, 46px);
 }
-/* weicher Glanz wie bei einer Blase */
-.tile::after {
-    content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none; border-radius: inherit;
-    background: radial-gradient(130% 70% at 18% 0%, rgba(255, 255, 255, .34), rgba(255, 255, 255, 0) 55%);
+.cell { position: relative; aspect-ratio: 1; }
+.cell:nth-child(even) { margin-top: clamp(30px, 5.4vw, 72px); }
+@media (max-width: 640px) { .cell:nth-child(even) { margin-top: 0; margin-left: 7vw; } .cell:nth-child(odd) { margin-right: 7vw; } }
+
+/* ---------- Glas-Kachel ---------- */
+.gt {
+    --rim: clamp(8px, 1.1vw, 12px);
+    position: absolute; inset: 0; border-radius: 27%; isolation: isolate; overflow: hidden;
+    padding: var(--rim);
+    background: linear-gradient(140deg, var(--g-fill-a), var(--g-fill-b) 48%, var(--g-fill-a));
+    -webkit-backdrop-filter: blur(22px) saturate(1.7); backdrop-filter: blur(22px) saturate(1.7);
+    box-shadow: var(--g-shadow),
+        inset 2px 2px 2px var(--g-edge), inset -2px -3px 3px var(--g-edge-dim),
+        inset 0 -16px 26px -14px var(--g-edge-dim), inset 0 0 0 1px var(--g-edge-dim);
+    animation: drift var(--d, 22s) ease-in-out var(--dl, 0s) infinite alternate;
+    cursor: pointer; touch-action: manipulation;
 }
-.tile:focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
-.tile img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; transition: transform .7s cubic-bezier(.2, .8, .2, 1); }
+@keyframes drift {
+    from { transform: translate(0, 0) rotate(0deg); }
+    to { transform: translate(var(--tx, 5px), var(--ty, -5px)) rotate(var(--r, 1.2deg)); }
+}
+/* Lichtkante: heller Rand oben links und unten rechts, in der Mitte durchsichtig */
+.gt::before {
+    content: ""; position: absolute; inset: 0; z-index: 4; border-radius: inherit; padding: 1.6px; pointer-events: none;
+    background: linear-gradient(135deg, var(--g-edge), transparent 34%, transparent 66%, var(--g-edge-dim));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+}
+/* Glanzbogen wie bei gewoelbtem Glas */
+.gt::after {
+    content: ""; position: absolute; z-index: 4; left: 8%; width: min(46%, 220px); top: 2%; height: min(20%, 70px); border-radius: 50%; pointer-events: none;
+    background: linear-gradient(180deg, rgba(255, 255, 255, .55), rgba(255, 255, 255, 0));
+    opacity: .75; transition: opacity .4s ease;
+}
+.gt:has(.gt-link:focus-visible) { outline: 3px solid var(--focus); outline-offset: 5px; }
 
-.tile-tiger { background: var(--paper); }
-.tile-tiger img { object-fit: contain; padding: 9%; }
-.tile-orchid img { object-fit: cover; object-position: 50% 30%; }
-
-:root[data-theme="dark"] .tile-tiger { background: var(--surface-2); }
-:root[data-theme="dark"] .tile-tiger img { filter: invert(.9); }
-:root[data-theme="dark"] .tile { box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, .08); }
-:root[data-theme="dark"] .tile::after { background: radial-gradient(130% 70% at 18% 0%, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0) 55%); }
+.face { position: absolute; inset: var(--rim); z-index: 1; border-radius: calc(27% - var(--rim) * .6); overflow: hidden; box-shadow: inset 0 0 0 1px var(--g-face-line), inset 0 10px 24px rgba(0, 0, 0, .08); }
+.face img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.gt-tiger .face { background: var(--paper); }
+.gt-tiger .face img { object-fit: contain; padding: 9%; }
+.gt-orchid .face img { object-fit: cover; object-position: 50% 30%; }
+:root[data-theme="dark"] .gt-tiger .face { background: var(--surface-2); }
+:root[data-theme="dark"] .gt-tiger .face img { filter: invert(.9); }
 @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) .tile-tiger { background: var(--surface-2); }
-    :root:not([data-theme="light"]) .tile-tiger img { filter: invert(.9); }
-    :root:not([data-theme="light"]) .tile { box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, .08); }
-    :root:not([data-theme="light"]) .tile::after { background: radial-gradient(130% 70% at 18% 0%, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0) 55%); }
+    :root:not([data-theme="light"]) .gt-tiger .face { background: var(--surface-2); }
+    :root:not([data-theme="light"]) .gt-tiger .face img { filter: invert(.9); }
 }
 
-/* Name erscheint nur bei Hover oder Fokus (Entscheidung: Kacheln bleiben optisch textfrei) */
-.tile-label {
-    position: absolute; left: clamp(14px, 2.2vw, 26px); bottom: clamp(14px, 2.2vw, 26px); z-index: 3;
-    padding: .4rem .95rem; border-radius: 999px; font-size: .86rem; letter-spacing: .02em;
-    background: var(--bg); color: var(--text); box-shadow: 0 4px 14px rgba(0, 0, 0, .18);
-    opacity: 0; transform: translateY(8px); transition: opacity .3s ease, transform .3s ease; pointer-events: none;
-}
-.tile:focus-visible .tile-label { opacity: 1; transform: none; }
+.gt-link { position: absolute; inset: 0; z-index: 5; border-radius: inherit; }
+.gt-link:focus-visible { outline: none; }
 
-/* Hover nur mit Maus: Kachel wächst, die Nachbarn weichen */
-@media (hover: hover) and (pointer: fine) {
-    .tiles:hover > li:not(:hover) { flex-grow: .78; }
-    .tiles > li:hover { flex-grow: 1.45; }
-    .tile:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover), inset 0 2px 0 rgba(255, 255, 255, .55); }
-    .tile:hover img { transform: scale(1.05); }
-    .tile:hover .tile-label { opacity: 1; transform: none; }
-}
+/* Live-Vorschau (Tiger: Bildfolge, Orchidee: 3D) */
+.live { position: absolute; inset: var(--rim); z-index: 2; border-radius: calc(27% - var(--rim) * .6); overflow: hidden; opacity: 0; transition: opacity .5s ease; pointer-events: none; background: #0f0f11; }
+.gt.is-live .live { opacity: 1; }
+.gt-orchid .live { background: radial-gradient(130% 100% at 50% 15%, #7d7167, #463f39); }
+.live img, .live canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
+.live model-viewer { position: absolute; inset: 0; width: 100%; height: 100%; --poster-color: transparent; background: transparent; }
 
-@media (max-width: 640px) {
-    .tiles > li { flex-basis: 100%; }
-    .tile { height: clamp(300px, 104vw, 520px); }
+/* Name und Knopf */
+.cap {
+    position: absolute; z-index: 6; left: clamp(16px, 2.4vw, 28px); right: clamp(16px, 2.4vw, 28px); bottom: clamp(16px, 2.4vw, 28px);
+    display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; pointer-events: none;
+    opacity: 0; transform: translateY(10px); transition: opacity .35s ease, transform .35s ease;
 }
+.cap-name, .go {
+    padding: .5rem 1rem; border-radius: 999px; font-size: .9rem; letter-spacing: .02em; color: var(--text);
+    background: var(--g-cap); -webkit-backdrop-filter: blur(14px) saturate(1.5); backdrop-filter: blur(14px) saturate(1.5);
+    box-shadow: inset 1px 1px 1px var(--g-edge), inset -1px -1px 1px var(--g-edge-dim), 0 6px 18px rgba(0, 0, 0, .18);
+}
+.go { margin-left: auto; text-decoration: none; font-weight: 600; pointer-events: auto; display: none; }
+.gt.is-open .cap, .gt:has(.gt-link:focus-visible) .cap { opacity: 1; transform: none; }
+.gt.is-open .go { display: inline-block; }
+.x {
+    position: absolute; z-index: 7; top: clamp(14px, 2.4vw, 24px); right: clamp(14px, 2.4vw, 24px); width: 44px; height: 44px; border-radius: 50%;
+    border: 0; padding: 0; font-size: 1.6rem; line-height: 1; color: var(--text); cursor: pointer; display: none;
+    background: var(--g-cap); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    box-shadow: inset 1px 1px 1px var(--g-edge), inset -1px -1px 1px var(--g-edge-dim), 0 6px 18px rgba(0, 0, 0, .18);
+}
+.gt.is-open.is-touch .x { display: block; }
+
+/* Vergroessert: die Kachel loest sich aus dem Raster und waechst zur Mitte des Bildschirms */
+.scrim { position: fixed; inset: 0; z-index: 40; background: rgba(10, 10, 12, .0); opacity: 0; pointer-events: none; transition: opacity .5s ease, background .5s ease; -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px); }
+.scrim.on { opacity: 1; background: rgba(10, 10, 12, .26); }
+.scrim.on.touch { pointer-events: auto; background: rgba(10, 10, 12, .46); }
+.gt.is-fixed {
+    position: fixed; z-index: 50; inset: auto; animation: none; transform: none; border-radius: 27%;
+    transition: left .6s cubic-bezier(.2, .85, .2, 1), top .6s cubic-bezier(.2, .85, .2, 1), width .6s cubic-bezier(.2, .85, .2, 1), height .6s cubic-bezier(.2, .85, .2, 1), border-radius .6s ease;
+}
+.gt.is-open { border-radius: clamp(36px, 5vw, 64px); }
+.gt.is-open .face, .gt.is-open .live { border-radius: calc(clamp(36px, 5vw, 64px) - var(--rim)); }
+.gt.is-open::after { opacity: .3; }
+.gt.is-open .gt-link { pointer-events: none; }
+.gt.is-open.is-touch .live { pointer-events: auto; }
+.gt.is-open:not(.is-touch) .live { pointer-events: auto; }
 
 @media (prefers-reduced-motion: reduce) {
-    .mark-sweep, .spark { animation: none; }
+    .mark-sweep, .spark, .aurora::before, .aurora::after, .gt { animation: none; }
     .spark { opacity: 0; }
-    .tiles > li, .tile, .tile img, .tile-label { transition: none; }
+    .gt.is-fixed, .live, .cap, .scrim { transition: none; }
 }

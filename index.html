@@ -20,7 +20,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <link rel="preload" href="fonts/poppins-latin-400.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="css/mk.css?v=20261109b">
-    <link rel="stylesheet" href="css/home.css?v=20261123a">
+    <link rel="stylesheet" href="css/home.css?v=20261123b">
     <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 </head>
@@ -33,7 +33,9 @@
         </div>
     </header>
 
-    <main id="main" class="home2">
+    <main id="main" class="home3">
+        <div class="aurora" aria-hidden="true"></div>
+        <div class="scrim" aria-hidden="true"></div>
 
         <section class="mark" aria-labelledby="home-h">
             <svg class="mark-glyph" viewBox="0 0 1026 890" aria-hidden="true" focusable="false">
@@ -61,19 +63,25 @@
             <h1 id="home-h">MK-Projects</h1>
         </section>
 
-        <!-- Neues Projekt: einen <li>-Block kopieren, Link, Bild und Namen ändern. Das Raster wächst von selbst. -->
-        <ul class="tiles" aria-label="Projekte">
-            <li>
-                <a class="tile tile-tiger" href="tiger-story.html" aria-label="Tiger, Linolschnitt: die Entstehung ansehen">
-                    <img src="img/svg/tiger.svg" width="730" height="725" alt="" decoding="async">
-                    <span class="tile-label" aria-hidden="true">Tiger</span>
-                </a>
+        <!-- Neues Projekt: einen <li>-Block kopieren, Link, Bild, Namen und Art (frames oder model) ändern. Das Raster wächst von selbst. -->
+        <ul class="grid" aria-label="Projekte">
+            <li class="cell">
+                <article class="gt gt-tiger" style="--r:1.3deg;--tx:6px;--ty:-5px;--d:21s;--dl:-4s" data-kind="frames" data-frames="img/story/tiger-m/f" data-count="73" data-step="4" data-title="Tiger">
+                    <div class="face"><img src="img/svg/tiger.svg" width="730" height="725" alt="" decoding="async"></div>
+                    <div class="live" aria-hidden="true"></div>
+                    <a class="gt-link" href="tiger-story.html" aria-label="Tiger, Linolschnitt: die Entstehung ansehen"></a>
+                    <div class="cap"><span class="cap-name">Tiger</span><a class="go" href="tiger-story.html" tabindex="-1">Projekt öffnen <span aria-hidden="true">&rarr;</span></a></div>
+                    <button class="x" type="button" aria-label="Vorschau schließen">&times;</button>
+                </article>
             </li>
-            <li>
-                <a class="tile tile-orchid" href="orchideen-story.html" aria-label="Orchideen-System: den Aufbau ansehen">
-                    <img src="img/orchid/render-gesamt.webp?v=20261109b" width="1000" height="1250" alt="" decoding="async">
-                    <span class="tile-label" aria-hidden="true">Orchideen-System</span>
-                </a>
+            <li class="cell">
+                <article class="gt gt-orchid" style="--r:-1.1deg;--tx:-5px;--ty:6px;--d:25s;--dl:-11s" data-kind="model" data-model="3d/orchideen-system.glb?v=20261109b" data-title="Orchideen-System">
+                    <div class="face"><img src="img/orchid/render-gesamt.webp?v=20261109b" width="1000" height="1250" alt="" decoding="async"></div>
+                    <div class="live" aria-hidden="true"></div>
+                    <a class="gt-link" href="orchideen-story.html" aria-label="Orchideen-System: den Aufbau ansehen"></a>
+                    <div class="cap"><span class="cap-name">Orchideen-System</span><a class="go" href="orchideen-story.html" tabindex="-1">Projekt öffnen <span aria-hidden="true">&rarr;</span></a></div>
+                    <button class="x" type="button" aria-label="Vorschau schließen">&times;</button>
+                </article>
             </li>
         </ul>
     </main>
@@ -91,6 +99,7 @@
         </div>
     </footer>
     <script src="mk.js?v=20261109b"></script>
+    <script src="home.js?v=20261123b" defer></script>
 </body>
 
 </html>

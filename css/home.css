@@ -50,12 +50,10 @@
 @keyframes aur-a { to { transform: translate(8vw, 6vh) scale(1.12); } }
 @keyframes aur-b { to { transform: translate(-7vw, -5vh) scale(1.08); } }
 
-/* ---------- Zeichen: Linolschnitt-Animation (mark.js), Hintergrund transparent ---------- */
-:root { --mk-ink: #141414; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --mk-ink: #ececee; } }
-:root[data-theme="dark"] { --mk-ink: #ececee; }
+/* ---------- Zeichen: in Blender gerendertes Linolschnitt-Video (animiertes WebP mit Alpha, mark.js waehlt Hell/Dunkel) ---------- */
+/* --mw = Breite des Blocks wie bisher; das Bild ist 1,367 x so breit (Platz fuer Messer, Walze, Schlag), Ueberstand per negativem Rand, kein Layoutsprung */
 .mark { max-width: 1240px; margin: 0 auto; padding: clamp(.8rem, 2.4vw, 1.6rem) 4vw 0; }
-.mark-stage { display: block; width: clamp(150px, 16vw, 230px); height: auto; overflow: visible; }
+.mark-stage { --mw: clamp(150px, 16vw, 230px); display: block; width: calc(var(--mw) * 1.367); height: auto; aspect-ratio: 630 / 560; margin: calc(var(--mw) * -.17) calc(var(--mw) * -.37) calc(var(--mw) * -.17) calc(var(--mw) * -.01); pointer-events: none; user-select: none; }
 
 /* ---------- Raster: grobe Ordnung, Groessen wechseln langsam (zwei Anordnungen wie auf der Skizze) ---------- */
 .grid {
@@ -182,5 +180,5 @@
     .grid { --u: clamp(110px, 38vw, 190px); width: 92vw; }
     .cell:nth-child(3) { left: 4%; }
     .cell:nth-child(4) { top: -3%; }
-    .mark-stage { width: clamp(120px, 36vw, 170px); }
+    .mark-stage { --mw: clamp(120px, 36vw, 170px); }
 }

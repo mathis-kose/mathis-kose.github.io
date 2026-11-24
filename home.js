@@ -27,7 +27,9 @@
         w = Math.max(w, Math.min(home.width * 1.1, vw - 2 * m)); h = Math.max(h, Math.min(home.height * 1.1, vh - 2 * m));
         var cx = home.left + home.width / 2, cy = home.top + home.height / 2;
         var l = Math.max(m, Math.min(vw - w - m, cx - w / 2));
-        var tp = Math.max(m, Math.min(vh - h - m, cy - h / 2));
+        // vertikal: die Kachel waechst nach unten (oben bleibt nahe der Zelle), damit Zeichen und Kopfbereich frei bleiben
+        var tp = Math.max(m, home.top - 8);
+        if (tp + h > vh - m) { h = Math.max(home.height, vh - m - tp); }
         return { left: l, top: tp, width: w, height: h };
     }
     function put(t, r) {

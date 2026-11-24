@@ -116,8 +116,9 @@
         }).catch(function () { st.loading = false; });
     }
     function startLive(t) {
-        if (saveData) return;
+        if (saveData && t.getAttribute('data-kind') !== 'soon') return;
         var k = t.getAttribute('data-kind');
+        if (k === 'soon') { t.classList.add('is-live'); return; }
         if (k === 'frames') { startFrames(t); t.classList.add('is-live'); }
         else if (k === 'model') { startModel(t); if (t._st && t._st.ready) t.classList.add('is-live'); }
     }
@@ -187,8 +188,8 @@
 
         // Handy: erstes Tippen = Vorschaufenster, der Knopf darin oeffnet das Projekt
         link.addEventListener('click', function (e) {
-            if (fine.matches) return;                      // Maus: normaler Link
-            e.preventDefault(); open(t, true);
+            if (fine.matches && t.getAttribute('data-kind') !== 'soon') return;   // Maus: normaler Link
+            e.preventDefault(); open(t, !fine.matches);
         });
         // Maus: Klick auf die vergroesserte Kachel (ohne Ziehen) oeffnet das Projekt
         var down = null;
@@ -196,13 +197,13 @@
         t.addEventListener('pointerup', function (e) {
             if (!down || !t.classList.contains('is-open') || t.classList.contains('is-touch') || e.pointerType !== 'mouse') return;
             var moved = Math.abs(e.clientX - down.x) + Math.abs(e.clientY - down.y);
+            if (t.getAttribute('data-kind') === 'soon') return;
             if (moved < 6 && Date.now() - down.t < 450 && !(e.target.closest && e.target.closest('.go'))) location.href = link.getAttribute('href');
         });
         // Tastatur: Fokus oeffnet, Enter navigiert
         link.addEventListener('focus', function () { if (link.matches(':focus-visible')) open(t, false); });
         link.addEventListener('blur', function () { if (current === t && !t.classList.contains('is-touch')) closeNow(t); });
         if (xbtn) xbtn.addEventListener('click', function (e) { e.stopPropagation(); closeNow(t); });
-        t.querySelector('.go').addEventListener('focus', function () {});
     });
 
     // Maus verlaesst Kachel und Ursprungsfeld: schliessen

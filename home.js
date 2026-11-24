@@ -14,11 +14,21 @@
     var hoverTimer = 0, leaveTimer = 0;
     var DUR = reduce ? 0 : 620;
 
-    function targetRect(touch) {
+    function targetRect(touch, home) {
         var vw = window.innerWidth, vh = window.innerHeight, w, h;
-        if (touch) { w = Math.min(vw * 0.92, 560); h = Math.min(vh * 0.74, 700); }
-        else { w = Math.min(1180, vw * 0.94); h = Math.min(vh * 0.86, 780); }
-        return { left: (vw - w) / 2, top: (vh - h) / 2, width: w, height: h };
+        if (touch || !home) {
+            w = Math.min(vw * 0.92, 560); h = Math.min(vh * 0.74, 700);
+            return { left: (vw - w) / 2, top: (vh - h) / 2, width: w, height: h };
+        }
+        // Maus: die Kachel waechst an Ort und Stelle (um die Mitte ihrer Zelle), ohne Fenster und ohne Abdunkeln
+        var m = 12;
+        w = Math.min(Math.max(home.width * 1.75, 520), vw * 0.9, 920);
+        h = Math.min(Math.max(home.height * 1.75, 420), vh * 0.86, 700);
+        w = Math.max(w, Math.min(home.width * 1.1, vw - 2 * m)); h = Math.max(h, Math.min(home.height * 1.1, vh - 2 * m));
+        var cx = home.left + home.width / 2, cy = home.top + home.height / 2;
+        var l = Math.max(m, Math.min(vw - w - m, cx - w / 2));
+        var tp = Math.max(m, Math.min(vh - h - m, cy - h / 2));
+        return { left: l, top: tp, width: w, height: h };
     }
     function put(t, r) {
         t.style.left = r.left + 'px'; t.style.top = r.top + 'px';
@@ -139,13 +149,14 @@
         if (current) closeNow(current, true);
         clearTimeout(t._closeT);
         var c = cellRect(t);
-        put(t, { left: c.left, top: c.top, width: c.width, height: c.height });
+        t._home = { left: c.left, top: c.top, width: c.width, height: c.height };   // eingefrorene Hover-Flaeche
+        put(t, t._home);
         t.classList.add('is-fixed');
         t.classList.toggle('is-touch', !!touch);
         void t.offsetWidth;
         t.classList.add('is-open');
-        put(t, targetRect(touch));
-        scrim.classList.add('on'); scrim.classList.toggle('touch', !!touch);
+        put(t, targetRect(touch, t._home));
+        if (touch) { scrim.classList.add('on', 'touch'); }
         current = t;
         startLive(t);
     }
@@ -165,7 +176,7 @@
     }
 
     window.addEventListener('resize', function () {
-        if (current) put(current, targetRect(current.classList.contains('is-touch')));
+        if (current) put(current, targetRect(current.classList.contains('is-touch'), current._home));
     });
     window.addEventListener('scroll', function () { if (current && !current.classList.contains('is-touch')) closeNow(current); }, { passive: true });
     doc.addEventListener('keydown', function (e) { if (e.key === 'Escape' && current) closeNow(current); });
@@ -206,12 +217,17 @@
         if (xbtn) xbtn.addEventListener('click', function (e) { e.stopPropagation(); closeNow(t); });
     });
 
-    // Maus verlaesst Kachel und Ursprungsfeld: schliessen
+    // Hover-Flaeche bleibt die alte Zellgroesse (eingefroren beim Oeffnen); verlaesst die Maus sie, schrumpft die Kachel.
+    // Waehrend des Ziehens (3D drehen, Bildfolge) bleibt sie offen.
+    var pressed = false;
+    doc.addEventListener('pointerdown', function (e) { if (e.pointerType === 'mouse') pressed = true; }, true);
+    window.addEventListener('pointerup', function () { pressed = false; }, true);
+    window.addEventListener('pointercancel', function () { pressed = false; }, true);
     doc.addEventListener('pointermove', function (e) {
         if (!current || e.pointerType !== 'mouse' || current.classList.contains('is-touch')) return;
-        var r = current.getBoundingClientRect(), c = cellRect(current), m = 14;
+        var c = current._home || cellRect(current), m = 6;
         var inside = function (b) { return e.clientX >= b.left - m && e.clientX <= b.right + m && e.clientY >= b.top - m && e.clientY <= b.bottom + m; };
-        if (inside(r) || inside(c)) { clearTimeout(leaveTimer); leaveTimer = 0; return; }
+        if (inside(c) || pressed) { clearTimeout(leaveTimer); leaveTimer = 0; return; }
         if (!leaveTimer) leaveTimer = setTimeout(function () { leaveTimer = 0; if (current) closeNow(current); }, 160);
     }, { passive: true });
     scrim.addEventListener('click', function () { if (current) closeNow(current); });

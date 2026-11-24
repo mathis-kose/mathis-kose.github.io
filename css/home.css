@@ -77,7 +77,7 @@
 
 /* ---------- Glas-Kachel ---------- */
 .gt {
-    --rim: clamp(7px, 1vw, 12px); --rad: clamp(26px, 4.4vw, 54px);
+    --rim: clamp(2px, .28vw, 3px); --rad: clamp(26px, 4.4vw, 54px);
     position: absolute; inset: 0; border-radius: var(--rad); isolation: isolate; overflow: hidden;
     padding: var(--rim);
     background: linear-gradient(140deg, var(--g-fill-a), var(--g-fill-b) 48%, var(--g-fill-a));
@@ -150,7 +150,7 @@
 }
 .go { margin-left: auto; text-decoration: none; font-weight: 600; pointer-events: auto; display: none; }
 .gt.is-open .cap, .gt:has(.gt-link:focus-visible) .cap { opacity: 1; transform: none; }
-.gt.is-open .go { display: inline-block; }
+.gt.is-open.is-touch .go { display: inline-block; }
 .x {
     position: absolute; z-index: 7; top: clamp(14px, 2.4vw, 24px); right: clamp(14px, 2.4vw, 24px); width: 44px; height: 44px; border-radius: 50%;
     border: 0; padding: 0; font-size: 1.6rem; line-height: 1; color: var(--text); cursor: pointer; display: none;
